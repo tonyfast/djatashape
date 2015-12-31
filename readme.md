@@ -1,3 +1,16 @@
+```
+Table.to_string()
+Table.sort('x').sort('y').unique('z')
+Table.to_string()
+Table.reset().to_string()
+Table.sort('x').sort('y').unique('z').compute().to_string()
+Table.reset().to_string()
+Table.reset_hard().to_string()
+Table.selection ['x','y'], (x,y)-> x < 2
+  .to_string()
+Table.reset_hard().iloc([0,2]).sort('y').iloc([0,2])
+```
+
 mVOZQg
 ------
 

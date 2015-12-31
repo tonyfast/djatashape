@@ -1,4 +1,3 @@
-%%coffeescript
 require ['d3','baobab'], (d3,Baobab)->
     class Expressions
         _column_name_array: (columns)-> if not Array.isArray columns then [columns] else columns
@@ -225,6 +224,7 @@ require ['d3','baobab'], (d3,Baobab)->
       
       expression: -> @_expressions.get()
       history: -> @_expressions.getHistory()
+      clear_history: -> @_expressions.clearHistory()
 
       constructor: (@_raw)->
         ###
@@ -268,6 +268,7 @@ require ['d3','baobab'], (d3,Baobab)->
         super()
         
       reset: -> @init @data.get 'checkpoint'
+      reset_hard: -> @init @_raw
 
       clone: -> 
         ### Basically reset the indice and create a new copy ###
@@ -275,6 +276,8 @@ require ['d3','baobab'], (d3,Baobab)->
             columns: @columns()
             values: @values()
             metadata: @metadata()
+            index: @metadata()
+            expressions getHistory()
 
       load: (url)->
         ### Load data from a url ###
