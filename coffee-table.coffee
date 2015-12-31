@@ -105,6 +105,7 @@ require ['d3','baobab'], (d3,Baobab)->
         columns: -> @_columns.get()
         metadata: -> @_metadata.get()
         checkpoint: -> @_checkpoint.get()
+        expression: -> @_expression.get()
         index: -> @_index.get()
 
         init: ->
@@ -182,15 +183,16 @@ require ['d3','baobab'], (d3,Baobab)->
           ###
           Compute changes the state of the data tree
           ###
-          @_expressions.set @expressions.filter((v)->v?).map (v)->
-            v['args'] = v['args'].map (v)-> if typeof(v) in ['function'] then v.toString() else v
-            v
-          @expressions = []          
+          alert JSON.stringify @expressions.filter((v)->v?)
+          @_expression.set( 
+            JSON.stringify @expressions.filter((v)->v?)
+          )
           @_checkpoint.deepMerge
             values: @values()
             index: @index()
             metadata: @metadata()
             columns: @columns()
+          this
                 
         update_index: (new_index, expression=null)->
             ###
@@ -222,9 +224,9 @@ require ['d3','baobab'], (d3,Baobab)->
 
     class Blaze extends BlazeBase
       
-      expression: -> @_expressions.get()
-      history: -> @_expressions.getHistory()
-      clear_history: -> @_expressions.clearHistory()
+      expression: -> @_expression.get()
+      history: -> @_expression.getHistory()
+      clear_history: -> @_expression.clearHistory()
 
       constructor: (@_raw)->
         ###
@@ -244,8 +246,8 @@ require ['d3','baobab'], (d3,Baobab)->
         @tree = new Baobab {}                    
         @data = @tree.select 0
         @_checkpoint = @data.select 'checkpoint'
-        @_expressions = @data.select 'expressions'
-        @_expressions.startRecording 20
+        @_expression = @data.select 'expressions'
+        @_expression.startRecording 20
         @expressions = []
         @init @_raw
         
@@ -277,7 +279,7 @@ require ['d3','baobab'], (d3,Baobab)->
             values: @values()
             metadata: @metadata()
             index: @metadata()
-            expressions getHistory()
+            expressions: getHistory()
 
       load: (url)->
         ### Load data from a url ###
