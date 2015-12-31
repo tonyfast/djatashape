@@ -1,0 +1,17 @@
+{
+  "name": "coffeetable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "coffee-coverage": "^0.7.0",
+    "coffee-script": "^1.10.0",
+    "mocha": "^2.3.4"
+  }
+}
