@@ -10,6 +10,7 @@ npm run testem
 ```
 
 ## `npm run` _`x`_
+
 | _x_ | does |
 |-|-|
 | `build-deps` | generate JS dependencies for tests |
