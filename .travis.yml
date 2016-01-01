@@ -6,6 +6,7 @@ before_script:
   - npm run build-test
 after_script:
   - npm run coverage
+  - npm run docs
 cache:
   directories:
     - node_modules
