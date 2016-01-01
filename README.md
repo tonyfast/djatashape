@@ -5,7 +5,7 @@ Get npm.
 
 ```bash
 npm install
-mkdir -p lib/test/ # funny story
+mkdir -p lib/test/lib # funny story
 npm run testem
 ```
 

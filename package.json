@@ -13,17 +13,22 @@
     "testem": "^0.9.11"
   },
   "license": "ISC",
-  "main": "index.js",
+  "main": "lib/coffeetable.js",
   "name": "coffeetable",
   "scripts": {
-    "build": "browserify -t coffeeify --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -o lib/coffeetable.js",
-    "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md --external coffeetable -o lib/test/index.js",
-    "coverage": "istanbul report",
+    "build": "browserify -t coffeeify --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -x d3 -x baobab -o lib/coffeetable.js",
+    "build-deps": "browserify -r baobab -r d3 -o lib/test/lib/vendor.js",
+    "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x coffeetable --ignore-missing -o lib/test/index.js",
+    "coverage": "istanbul report text",
     "lint": "coffeelint src/*.coffee src/test/*.coffee.md",
     "prepublish": "npm run build",
     "test": "mocha --recursive -R tap lib/test/*.js",
-    "test-coffee": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul -R tap src/test/*.coffee.md",
+    "test-coffee": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
     "testem": "testem"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "baobab": "^2.2.1",
+    "d3": "^3.5.12"
+  }
 }
