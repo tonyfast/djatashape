@@ -1,0 +1,11 @@
+framework: mocha
+launchers:
+  Mocha:
+    command: npm run test
+    protocol: tap
+before_tests: npm run build && npm run build-test
+serve_files:
+  - lib/**/*.js
+src_files:
+  - src/test/*.coffee.md
+  - src/*.coffee
