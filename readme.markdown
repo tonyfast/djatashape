@@ -1,4 +1,22 @@
 ```
+tables._catalog
+tables._catalog.dir
+tables._catalog.register
+tables._flow
+tables._flow.dir
+tables._flow.register
+tables._catalog.query
+tables._templates.dir #list template
+tables._templates.register #register new template
+
+tables.table['foo'].values
+tables.table['foo'].columns
+tables.table['foo'].column_source
+tables.table['foo'].register # register a new column
+tables.table['foo'].metadata
+tables.table['baz'].tree
+```
+```
 Table.to_string()
 Table.sort('x').sort('y').unique('z')
 Table.to_string()
