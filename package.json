@@ -22,8 +22,8 @@
     "coverage": "istanbul report text",
     "lint": "coffeelint src/*.coffee src/test/*.coffee.md",
     "prepublish": "npm run build",
-    "test": "mocha --recursive -R tap lib/test/*.js",
-    "test-coffee": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
+    "test-js": "mocha --recursive -R tap lib/test/*.js",
+    "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
     "testem": "testem"
   },
   "version": "1.0.0",
