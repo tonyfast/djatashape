@@ -1,13 +1,17 @@
 framework: mocha
+
 launchers:
   Mocha:
     command: npm run test
     protocol: tap
+
 before_tests: npm run build-test && npm run build-deps && npm run build
+
 serve_files:
   - lib/test/lib/*.js
   - lib/*.js
   - lib/test/*.js
+
 src_files:
   - src/*.coffee
   - src/test/*.coffee.md
