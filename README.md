@@ -1,4 +1,5 @@
 # CoffeeTable
+[![Build Status](https://travis-ci.org/bollwyvl/coffeetable.svg)](https://travis-ci.org/bollwyvl/coffeetable)
 
 ## Developing
 Get npm.
