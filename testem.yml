@@ -5,7 +5,7 @@ launchers:
     command: npm run test
     protocol: tap
 
-before_tests: npm run build-test && npm run build-deps && npm run build
+before_tests: npm run build-test && npm run build-deps && npm run build && npm run docs && npm run coverage
 
 serve_files:
   - lib/test/lib/*.js
@@ -14,4 +14,9 @@ serve_files:
 
 src_files:
   - src/*.coffee
+  - src/interactive/*.coffee
   - src/test/*.coffee.md
+
+routes:
+  /doc: doc
+  /coverage: coverage

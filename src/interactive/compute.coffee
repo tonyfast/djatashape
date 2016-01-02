@@ -1,3 +1,6 @@
+d3 = require "d3"
+
+
 class Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
@@ -10,7 +13,7 @@ class Compute
     this
 
   stage: (new_state,expression=null)->
-    [update_state, monkeys] = _split_update_object new_state
+    [update_state, monkeys] = @_split_update_object new_state
     @cursor.deepMerge update_state
     if monkeys.length > 0
       for monkey in monkeys
@@ -33,4 +36,4 @@ class Compute
               @_split_merge_object updated_state[entry.key], [path...,entry.key], monkeys
     [payload,monkeys]
 
-module.exports = { Compute }
+module.exports = Compute

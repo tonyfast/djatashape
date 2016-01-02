@@ -1,10 +1,14 @@
+d3 = require 'd3'
 ColumnDataSource = require './column_data_source'
+Column = require './columns'
+
 
 class TableBase extends Column
 
+
 class Table extends TableBase
   metadata: (args)-> @_metadata.get args...
-  constructor: (@name, data_or_url)->
+  constructor: (data_or_url, @name=null)->
     ## The table can be renamed ###
     @_name = @cursor.select 'name'
     @_name.set @name
@@ -29,19 +33,21 @@ class Table extends TableBase
           columns: data.columns ? []
           metadata: data.metadata ? {}
           readme: data.readme ? null
-          index: d3.range data.values.length ? 0
+          index: d3.range data.values?.length ? 0
         ,
           method: 'load'
           args: [data]
       super()
-Table::expr.concat = ->
-Table::expr.head = ->
-Table::expr.tail = ->
-Table::expr.sort = ->
-Table::expr.filter = ->
-Table::expr.map = ->
+
+Table::expr =
+  concat: ->
+  head: ->
+  tail: ->
+  sort: ->
+  filter: ->
+  map: ->
 
 Table::to_string = ->
 Table::to_json =  ->
 
-module.exports =  { Table }
+module.exports =  Table

@@ -12,4 +12,4 @@ class Row extends RowBase
   loc: ->
   update: ->
 
-module.exports = { Row }
+module.exports = Row

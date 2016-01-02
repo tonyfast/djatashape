@@ -8,4 +8,4 @@ class DataSource extends DataSourceBase
     @_values = @cursor.select 'values'
     super()
 
-module.exports = { DataSource }
+module.exports = DataSource
