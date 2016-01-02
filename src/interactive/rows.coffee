@@ -1,8 +1,7 @@
+Interactive = require '../interactive'
 Column = require './columns'
 
-class RowBase extends Column
-
-class Row extends RowBase
+class Interactive.Row extends Column
   index: (args)-> @_index.get args...
   constructor: ->
     @_index = @cursor.select 'index'
@@ -12,4 +11,4 @@ class Row extends RowBase
   loc: ->
   update: ->
 
-module.exports = Row
+module.exports = Interactive.Row

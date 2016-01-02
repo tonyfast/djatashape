@@ -1,12 +1,12 @@
 Manager = require './manager'
+Interactive = require './interactive'
 
-
-class CatalogBase extends Manager
-  _base_class: require './interactive'
+# Content is a collection of Interactive Tabular data sources.  Content
+# can be consumed by a publisher.  Both data and metadata of the table can
+# be injected into the dom
+class Content extends Manager
+  _base_class: Interactive
   _column_index = 'selector'
-
-
-class Catalog extends CatalogBase
   constructor: (data,to_register=[])->
     super
       # Values of the catalog
@@ -20,4 +20,4 @@ class Catalog extends CatalogBase
     to_register.forEach (value)=>
       @register value.name, value.args
 
-module.exports = Catalog
+module.exports = Content

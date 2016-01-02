@@ -1,11 +1,10 @@
+Interactive = require '../interactive'
 Expression = require './expression'
 
-class ColumnBase extends Expression
-
-class Column extends ColumnBase
+class Interactive.Column extends Expression
   columns: (args)-> @_columns.get args...
   constructor: ->
     @_columns = @cursor.select 'columns'
   update: ->
 
-module.exports = Column
+module.exports = Interactive.Column

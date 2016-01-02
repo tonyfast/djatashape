@@ -1,8 +1,7 @@
+Interactive = require '../interactive'
 History = require './history'
 
-class ExpressionBase extends History
-
-class Expression extends ExpressionBase
+class Interactive.Expression extends History
   expression: (args)-> @_expression.get args...
   constructor: ->
     @expressions = []
@@ -23,4 +22,4 @@ class Expression extends ExpressionBase
   get: (args)-> @cursor.get args...
   set: (args)-> @cursor.set args...
 
-module.exports = Expression
+module.exports = Interactive.Expression

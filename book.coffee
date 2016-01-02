@@ -1,9 +1,8 @@
 Manager = require './manager'
 
-class EnvironmentBase extends Manager
-  _base_class: require './template'
+class Book extends Manager
+  _base_class: require './interactive'
   _column_index: 'selector'
-class Environment extends EnvironmentBase
   constructor: (data,to_register=[])->
     data ?= {}
     @
@@ -19,4 +18,4 @@ class Environment extends EnvironmentBase
     to_register.forEach (value)=>
       @register value.name, value.args
 
-module.exports = Environment
+module.exports = Publisher
