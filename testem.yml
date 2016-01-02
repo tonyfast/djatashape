@@ -5,7 +5,13 @@ launchers:
     command: npm run test
     protocol: tap
 
-before_tests: npm run build-test && npm run build-deps && npm run build && npm run docs && npm run coverage
+before_tests: |
+  npm run build-test \
+    && npm run build-deps \
+    && npm run build \
+    && npm run docs \
+    && (npm run test || true) \
+    && npm run coverage
 
 serve_files:
   - lib/test/lib/*.js
