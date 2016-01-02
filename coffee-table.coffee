@@ -14,17 +14,17 @@ require ['d3','baobab'], (d3,Baobab)->
     class ColumnExpression extends History
         columns: -> @_columns.get()
         metadata: -> @_metadata.get()
-        constructor: ()-> 
+        constructor: ()->
             @_columns = @data.select 'columns'
             @_metadata = @data.select 'metadata'
             super()
-            
+
     class RowExpression extends ColumnExpression
         index: -> @_index.get()
         constructor: ()->
             @_index = @data.select 'index'
             super()
-            
+
         update_index: (new_index, expression=null)->
             ###
             Update indices and values
@@ -36,7 +36,7 @@ require ['d3','baobab'], (d3,Baobab)->
             @stage
                 values: new_index.map (value) -> values[old_index.indexOf value]
                 index: new_index
-              , expression 
+              , expression
 
         loc: (index)->
           ###
@@ -53,7 +53,7 @@ require ['d3','baobab'], (d3,Baobab)->
           old_index = @index()
           @update_index index.map((i)=> old_index[i])
         head: (n)-> @iloc d3.range n
-        #tail: (n)-> @iloc d3.range 
+        #tail: (n)-> @iloc d3.range
 
     for reduction in 'min,max,sum,mean,median,variance,deviation'.split(',')
       ColumnExpression.prototype[reduction] = (column_data...)->
@@ -61,10 +61,10 @@ require ['d3','baobab'], (d3,Baobab)->
 
     class TableExpression extends RowExpression
         values: -> @_values.get()
-        constructor: ()-> 
+        constructor: ()->
             @_values = @data.select 'values'
             super()
-    
+
     TableExpression::multi_sort = (a,b,direction='ascending',i=0)->
       ### Multisorting function in d3 ###
       [a[i],b[i]] = [parseFloat(a[i]),parseFloat(b[i])]
@@ -76,7 +76,7 @@ require ['d3','baobab'], (d3,Baobab)->
       columns = @_column_name_array columns ? @_columns.get 0
       sorted = d3.zip columns.map((c)=> @column_data_source c)..., @column_data_source 'index'
       sorted = sorted.sort (a,b)=> @multi_sort a,b,direction
-      @update_index sorted.map((value)=> value[columns.length]), 
+      @update_index sorted.map((value)=> value[columns.length]),
         method: 'sort'
         args: [columns,direction]
 
@@ -89,7 +89,7 @@ require ['d3','baobab'], (d3,Baobab)->
               p['values'].push n
               p['id'].push previous_index[i]
             p
-        , 
+        ,
           values: []
           id: []
       alert JSON.stringify unique_id
@@ -111,7 +111,7 @@ require ['d3','baobab'], (d3,Baobab)->
           columns: columns
           column_data_source: cds
           values: d3.merge @values(), monkey_function cursor_columns.map((c)=>@column_data_source c)...,i
-        , 
+        ,
           method: 'transform'
           args: [name, cursor_columns, monkey_function]
 
@@ -137,9 +137,9 @@ require ['d3','baobab'], (d3,Baobab)->
         @stage
             columns: columns
             values: @values().map (row_values)=>row_values[col...]
-          , 
+          ,
             method: 'selection'
-            args: [columns], 
+            args: [columns],
     TableExpression::order= ()-> @sort('index')
 
     class ColumnDataSource extends TableExpression
@@ -148,7 +148,7 @@ require ['d3','baobab'], (d3,Baobab)->
             @_cds = @data.select 'column_data_source'
             @_columns = @data.select 'columns'
             super()
-            
+
         init: ->
             cds = @_add_column_data_source 'index', {}, Baobab.monkey ['index'], (index)-> index
             columns = Array @columns()...
@@ -156,18 +156,18 @@ require ['d3','baobab'], (d3,Baobab)->
               ### Create Dynamic Nodes for Each Column Data Source ###
               cds = @_add_column_data_source column, cds
             @stage cds
-            
+
 
         _column_name_array: (columns)-> if not Array.isArray columns then [columns] else columns
-        
+
         _add_column_data_source: (column,tmp={},monkey)->
             unless tmp['column_data_source']?
                 tmp['column_data_source'] = {}
-            
+
             monkey ?= Baobab.monkey ['columns'],['values'],['.','name'], (columns,values,column_name)->
                     column_index = columns.indexOf column_name
                     values.map (row_values)=> row_values[column_index]
-            tmp['column_data_source'][column] =                
+            tmp['column_data_source'][column] =
                 name: column
                 values: monkey
             tmp
@@ -208,33 +208,33 @@ require ['d3','baobab'], (d3,Baobab)->
               @data.set monkey.path, monkey.value
           unless expression? then @compute()  else @record expression
           this
- 
+
         compute: ()->
-          ### Compute changes the state of the data tree ###          
+          ### Compute changes the state of the data tree ###
           @_checkpoint.deepMerge
             values: @values()
             index: @index()
             metadata: @metadata()
             columns: @columns()
           this
-        
+
         _split_merge_object: ( payload, path=[], monkeys=[] )->
             ### Prune and set the Baobab monkeys and return only the values compliant with deepMerge ###
             d3.entries payload
                 .forEach (entry)=>
-                  if Array.isArray(entry.value) 
+                  if Array.isArray(entry.value)
                     ### do nothing ###
                   else if typeof(entry.value) in ['object']
                     if payload[entry.key]['hasDynamicPaths']?
-                      monkeys.push 
+                      monkeys.push
                         path: [path...,entry.key]
                         value: entry.value
-                      delete payload[entry.key]                  
+                      delete payload[entry.key]
                     else
                       @_split_merge_object payload[entry.key], [path...,entry.key], monkeys
             [payload,monkeys]
 
-    
+
     class BlazeView extends BlazeBase
         constructor: -> super()
         init: -> super()
@@ -245,7 +245,7 @@ require ['d3','baobab'], (d3,Baobab)->
           values.forEach (line,i)=> s+= "#{@_index.get i},#{line.toString()}\n"
           s
         console: -> console.log @to_string()
-        alert: -> alert @to_string()        
+        alert: -> alert @to_string()
     class Interactive extends BlazeView
         constructor: -> super()
         init: -> super()
@@ -270,23 +270,23 @@ require ['d3','baobab'], (d3,Baobab)->
         @tree = new Baobab {}
         super()
         @init()
-        
-      
-      init: ()-> 
-            if typeof(@_raw) in ['string'] 
+
+
+      init: ()->
+            if typeof(@_raw) in ['string']
                 d3.json data, (table_data)=>
                   table_data['url'] = @_raw
                   @stage
-                        raw: table_data                            
+                        raw: table_data
                         index: d3.range table_data.length
                     ,
                         method: 'init'
                         args: [data]
                   @compute()
                   super()
-            else 
+            else
                 data = @_raw
-                obj =             
+                obj =
                     values: data.values
                     columns: data.columns
                     metadata: data.metadata
@@ -295,18 +295,18 @@ require ['d3','baobab'], (d3,Baobab)->
                         values: data.values
                         columns: data.columns
                         metadata: data.metadata
-                @stage obj, 
+                @stage obj,
                         method: 'record'
                         args: [data]
                 super()
-        
+
       reset: -> @stage @data.get 'checkpoint'
-      reset_hard: -> @init 
+      reset_hard: -> @init
         values: @_raw.values
         metadata: @_raw.metadata
         columns: @_raw.columns
 
-      clone: -> 
+      clone: ->
         ### Basically reset the indice and create a new copy ###
         new Blaze
             columns: @columns()
