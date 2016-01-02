@@ -18,13 +18,12 @@
   "main": "lib/coffeetable.js",
   "name": "coffeetable",
   "scripts": {
-    "build": "browserify -t coffeeify --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -x d3 -x baobab -o lib/coffeetable.js",
+    "build": "browserify -t coffeeify --debug --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -x d3 -x baobab -o lib/coffeetable.js",
     "build-deps": "browserify -r baobab -r d3 -o lib/test/lib/vendor.js",
     "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x coffeetable --ignore-missing -o lib/test/index.js",
-    "coverage": "istanbul report text",
+    "coverage": "istanbul report",
     "docs": "codo src - src/test/*",
     "lint": "coffeelint src/*.coffee src/test/*.coffee.md",
-    "prepublish": "npm run build",
     "test-js": "mocha --recursive -R tap lib/test/*.js",
     "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
     "testem": "testem"

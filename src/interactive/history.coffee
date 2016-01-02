@@ -10,4 +10,4 @@ class History extends Compute
   record: (expression)->
       @expressions.push expression
 
-module.exports = { History }
+module.exports = History

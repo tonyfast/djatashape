@@ -8,4 +8,4 @@ class Manager extends Interactive
   unregister: ( name )->
   commit: ->
 
-module.exports = { Manager }
+module.exports = Manager

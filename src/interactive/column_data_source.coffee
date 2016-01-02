@@ -1,6 +1,7 @@
 DataSource = require './data'
 
 class ColumnDataSourceBase extends DataSource
+
 class ColumnDataSource extends ColumnDataSourceBase
   constructor: ->
     super()
@@ -37,4 +38,4 @@ class ColumnDataSource extends ColumnDataSourceBase
     else
       @_cds.get(columns[0],'values')
 
-module.exports = { ColumnDataSource }
+module.exports = ColumnDataSource

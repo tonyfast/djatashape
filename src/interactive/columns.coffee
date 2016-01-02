@@ -8,4 +8,4 @@ class Column extends ColumnBase
     @_columns = @cursor.select 'columns'
   update: ->
 
-module.exports = { Column }
+module.exports = Column

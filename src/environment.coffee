@@ -13,13 +13,10 @@ class Environment extends EnvironmentBase
       # features in the catalog
       columns: data.columns ? ['selector']
       # augmented column information
-      metadata: data.metadata ?
-        id:
-          description: "The name of a template in an environment."
+      metadata: data.metadata ? id:
+        description: "The name of a template in an environment."
       readme: "How can I import a readme file"
     to_register.forEach (value)=>
       @register value.name, value.args
 
-module.exports = {
-  Environment
-}
+module.exports = Environment
