@@ -5,7 +5,7 @@ class CoffeeTable
   constructor: (catalog, environment,edges=)->
     @catalog = new @Catalog catalog
     @environment = new @Environment environment
-    @flow = new @DataFlow edges
+    #@flow = new @DataFlow edges
 
   version: '0.1.0'
   Interactive: require './interactive'
