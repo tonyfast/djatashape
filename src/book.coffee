@@ -7,11 +7,8 @@ class Book extends Manager
     data ?= {}
     @
     super
-      # Values of the catalog
       values: data.values ? [[]]
-      # features in the catalog
       columns: data.columns ? ['selector']
-      # augmented column information
       metadata: data.metadata ? id:
         description: "The name of a template in an environment."
       readme: "How can I import a readme file"
