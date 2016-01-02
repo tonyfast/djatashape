@@ -1,8 +1,7 @@
+Interactive = require '../interactive'
 DataSource = require './data'
 
-class ColumnDataSourceBase extends DataSource
-
-class ColumnDataSource extends ColumnDataSourceBase
+class Interactive.ColumnDataSource extends DataSource
   constructor: ->
     super()
     @_cds = @cursor.select 'column_data_source'
@@ -38,4 +37,4 @@ class ColumnDataSource extends ColumnDataSourceBase
     else
       @_cds.get(columns[0],'values')
 
-module.exports = ColumnDataSource
+module.exports = Interactive.ColumnDataSource

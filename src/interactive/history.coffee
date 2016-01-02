@@ -1,6 +1,7 @@
+Interactive = require '../interactive'
 Compute = require './compute'
 
-class History extends Compute
+class Interactive.History extends Compute
   constructor: ->
     @_checkpoint = @cursor.select 'checkpoint'
     @_expression.startRecording 20
@@ -10,4 +11,4 @@ class History extends Compute
   record: (expression)->
       @expressions.push expression
 
-module.exports = History
+module.exports = Interactive.History

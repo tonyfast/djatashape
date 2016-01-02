@@ -1,11 +1,10 @@
+Interactive = require '../interactive'
 Row = require './rows'
 
-class DataSourceBase extends Row
-
-class DataSource extends DataSourceBase
+class Interactive.DataSource extends Row
   values: (args)-> @_values.get args...
   constructor: ->
     @_values = @cursor.select 'values'
     super()
 
-module.exports = DataSource
+module.exports = Interactive.DataSource

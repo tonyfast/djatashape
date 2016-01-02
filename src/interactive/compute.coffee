@@ -1,7 +1,7 @@
 d3 = require "d3"
+Interactive = require '../interactive'
 
-
-class Compute
+class Interactive.Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
     @_checkpoint.deepMerge
@@ -36,4 +36,4 @@ class Compute
               @_split_merge_object updated_state[entry.key], [path...,entry.key], monkeys
     [payload,monkeys]
 
-module.exports = Compute
+module.exports = Interactive.Compute
