@@ -1,6 +1,5 @@
 # CoffeeTable
-[![Build Status](https://travis-ci.org/bollwyvl/coffeetable.svg?branch=testem-opinion-docs)](https://travis-ci.org/bollwyvl/coffeetable)
-
+[![Build Status](https://travis-ci.org/tonyfast/coffeetable.svg?branch=master)](https://travis-ci.org/tonyfast/coffeetable)
 
 ## Developing
 Get npm.
