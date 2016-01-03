@@ -1,4 +1,4 @@
-Manager = require './book/manager'
+Editor = require './editor'
 
 ###
 A Book uses Publishers to create Templates that join to subsets of Content.  The
@@ -19,7 +19,7 @@ table.book['#table'].column_data_source
 table.book['#table'].selection.__data__ # is some data appended to the selection from the tree
 ```
 ###
-class Book extends Manager
+class Book extends Editor
   _base_class: require './interactive'
   constructor: (data,to_register=[])->
     data ?= {}

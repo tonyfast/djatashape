@@ -1,5 +1,5 @@
 Baobab = require "baobab"
-Interactive = require '../interactive'
+Interactive = require './index'
 DataSource = require './data'
 
 class Interactive.ColumnDataSource extends DataSource

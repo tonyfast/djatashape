@@ -1,4 +1,4 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 Row = require './rows'
 
 class Interactive.DataSource extends Row

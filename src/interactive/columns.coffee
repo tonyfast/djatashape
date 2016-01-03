@@ -1,4 +1,4 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 Expression = require './expression'
 
 class Interactive.Column extends Expression

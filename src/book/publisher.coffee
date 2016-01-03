@@ -1,5 +1,5 @@
-Book = require '../book'
-Manager = require './manager'
+Book = require './index'
+Editor = require './editor'
 Template = require './template'
 
 ###
@@ -32,7 +32,7 @@ template.render 'tr.index > th', [
 ```
 ###
 
-class Book.Publisher extends Manager
+class Book.Publisher extends Editor
   _base_class: Template
 
   constructor: (data,to_register=[])->

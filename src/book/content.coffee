@@ -1,6 +1,6 @@
-Book = require '../book'
-Manager = require './manager'
-Interactive = require '../interactive'
+Book = require './index'
+Editor = require './editor'
+Interactive = require '../interactive/index'
 
 # Content is a collection of Interactive Tabular data sources.  Content
 # can be consumed by a publisher.  Both data and metadata of the table can
@@ -30,7 +30,7 @@ table.content['#table'].column_data_source
 table.content['#table'].sort().unique().filter().map()
 ```
 ###
-class Book.Content extends Manager
+class Book.Content extends Editor
   _base_class: Interactive
   constructor: (data,to_register=[])->
     super

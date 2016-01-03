@@ -1,4 +1,4 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 History = require './history'
 
 class Interactive.Expression extends History

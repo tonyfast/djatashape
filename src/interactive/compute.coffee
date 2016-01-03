@@ -1,5 +1,5 @@
 d3 = require "d3"
-Interactive = require '../interactive'
+Interactive = require './index'
 
 class Interactive.Compute
   compute: ()->

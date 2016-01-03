@@ -1,4 +1,4 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 Column = require './columns'
 
 class Interactive.Row extends Column

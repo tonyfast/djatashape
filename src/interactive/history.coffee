@@ -1,4 +1,4 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 Compute = require './compute'
 
 class Interactive.History extends Compute

@@ -1,5 +1,5 @@
 Baobab = require 'baobab'
-Table = require './interactive/table'
+Table = require './table'
 
 # Interactive data sources manipulate table eg. ``sort``,``unique``,``filter``,``map``, ``groupby``, ``join`` .
 # ``Baobab`` trees are interactive and immutable.  They manage the state of the
