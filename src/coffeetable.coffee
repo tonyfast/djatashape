@@ -4,20 +4,32 @@ Publisher =  require './book/publisher'
 Content =  require './book/content'
 Book =  require './book'
 
-# interactive tabular data, optimized for the browser
-#
-# @example Let's get started
-#   table = new CoffeeTable
-#     columns: [
-#       'x'
-#       'y'
-#     ]
-#     values: [
-#       [1, 2]
-#       [3, 8]
-#     ]
+###
+interactive tabular data, optimized for the browser
+
+@example Create some CoffeeTable books.
+      books = new CoffeeTable [
+        name: 'rectangle'
+        args:
+          columns: ['x', 'y']
+          values: [[1, 2],[3, 8]]
+        ], [
+          name: 'table'
+          args: d3.select '#table'
+        ,
+          name: 'text'
+          args: d3.select '#text'
+        ], [
+          name: 'table'
+          args:
+            columns: ['title','content','publisher']
+            values: [['table','rectangle','table'],['text','rectangle','text']]
+        ]]
+      console.log books.book['title']
+      console.log books.book['table']
+###
 class CoffeeTable
-  # Construct a new animal.
+  # Construct a collection of CoffeeTable books.
   #
   # @param [Object] content contains many Tabular datasets
   # @param [Object] publishers contains many DOM selections
