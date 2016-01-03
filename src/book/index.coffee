@@ -1,5 +1,5 @@
 Editor = require './editor'
-
+Interactive = require '../interactive/index'
 ###
 A Book uses Publishers to create Templates that join to subsets of Content.  The
 Book manager is responsible for nearly all of the content.
@@ -20,7 +20,7 @@ table.book['#table'].selection.__data__ # is some data appended to the selection
 ```
 ###
 class Book extends Editor
-  _base_class: require './interactive'
+  _base_class: Interactive
   constructor: (data,to_register=[])->
     data ?= {}
     super

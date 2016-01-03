@@ -1,5 +1,5 @@
 d3 = require 'd3'
-Interactive = require '../index'
+Interactive = require './index'
 ColumnDataSource = require './column_data_source'
 
 # Table assigns metadata to the Interactive data source
