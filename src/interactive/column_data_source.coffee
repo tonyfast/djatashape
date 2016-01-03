@@ -1,12 +1,11 @@
+Baobab = require "baobab"
 Interactive = require '../interactive'
 DataSource = require './data'
 
 class Interactive.ColumnDataSource extends DataSource
   constructor: ->
-    super()
     @_cds = @cursor.select 'column_data_source'
-    @load()
-    @compute()
+    super()
 
   load: (columns) ->
       columns ?= @columns()

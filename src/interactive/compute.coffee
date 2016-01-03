@@ -4,6 +4,13 @@ Interactive = require '../interactive'
 class Interactive.Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
+    console.log 1,
+      values: @values()
+      index: @index()
+      metadata: @metadata()
+      columns: @columns()
+      readme: @readme()
+
     @_checkpoint.deepMerge
       values: @values()
       index: @index()
@@ -27,13 +34,13 @@ class Interactive.Compute
           if Array.isArray(entry.value)
             ### do nothing ###
           else if typeof(entry.value) in ['object']
-            if payload[entry.key]['hasDynamicPaths']?
+            if updated_state[entry.key]['hasDynamicPaths']?
               monkeys.push
                 path: [path...,entry.key]
                 value: entry.value
-              delete payload[entry.key]
+              delete updated_state[entry.key]
             else
-              @_split_merge_object updated_state[entry.key], [path...,entry.key], monkeys
-    [payload,monkeys]
+              @_split_update_object updated_state[entry.key], [path...,entry.key], monkeys
+    [updated_state,monkeys]
 
 module.exports = Interactive.Compute

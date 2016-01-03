@@ -28,5 +28,6 @@ class Interactive extends Table
     @cursor = @tree.select 0
     @_readme = @cursor.select 'readme'
     super data_or_url, table_name
+    @compute()
 
 module.exports = Interactive

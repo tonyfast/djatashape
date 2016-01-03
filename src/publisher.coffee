@@ -3,7 +3,6 @@ Template = require './template'
 
 class Publisher extends Manager
   _base_class: Template
-  _column_index: 'selector'
   constructor: (data,to_register=[])->
     data ?= {}
     @

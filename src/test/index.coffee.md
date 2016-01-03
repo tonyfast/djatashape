@@ -19,19 +19,19 @@ the right handle for coffeetable.
 
     describe "CoffeeTable, the module", ->
       it "imports", ->
-        {CoffeeTable} = try
-          require "coffeetable"
+        {CoffeeTable,d3,Baobab} = try
+          require "../coffeetable"
         catch error
           try
             ### istanbul ignore next ###
             require "../coffeetable"
           catch error
             ### istanbul ignore next ###
-            window.coffeetable
+            window.CoffeeTable
 
         CoffeeTable.should.be.an "function"
 
 ## The Actual Tests
 Each of these is a module that exposes one function which accepts CoffeeTable
 
-        (require "./basics") CoffeeTable
+    (require "./basics") CoffeeTable

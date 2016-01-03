@@ -1,6 +1,6 @@
 d3 = require 'd3'
 Interactive = require '../interactive'
-Column = require './columns'
+ColumnDataSource = require './column_data_source'
 
 # Table assigns metadata to the Interactive data source
 # A table is describe by:
@@ -9,7 +9,7 @@ Column = require './columns'
 # * _metadata_ -
 # The table keys  naming is inspired by ``pandas.DataFrame.to_dict(orient='records').
 
-class Interactive.Table extends Columns
+class Interactive.Table extends ColumnDataSource
   metadata: (args)-> @_metadata.get args...
 
   # @param [String] data_or_url url to a json endpoint containing the keys ``values``, ``
@@ -19,8 +19,9 @@ class Interactive.Table extends Columns
     @_name = @cursor.select 'name'
     @_name.set @name
     @_metadata = @cursor.select 'metadata'
-    @load data_or_url
     super()
+    @load data_or_url
+
   load: (data_or_url)->
     if 'string' in [typeof data_or_url]
       d3.json data, (table_data)=>
@@ -45,7 +46,7 @@ class Interactive.Table extends Columns
           args: [data]
       super()
 
-Table::expr =
+Interactive.Table::expr =
   concat: ->
   head: ->
   tail: ->
@@ -53,7 +54,7 @@ Table::expr =
   filter: ->
   map: ->
 
-Table::to_string = ->
-Table::to_json =  ->
+Interactive.Table::to_string = ->
+Interactive.Table::to_json =  ->
 
 module.exports = Interactive.Table

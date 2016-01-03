@@ -5,6 +5,6 @@ class Interactive.Column extends Expression
   columns: (args)-> @_columns.get args...
   constructor: ->
     @_columns = @cursor.select 'columns'
-  update: ->
+    super()
 
 module.exports = Interactive.Column

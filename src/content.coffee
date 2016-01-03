@@ -6,7 +6,6 @@ Interactive = require './interactive'
 # be injected into the dom
 class Content extends Manager
   _base_class: Interactive
-  _column_index = 'selector'
   constructor: (data,to_register=[])->
     super
       values: data.values ? [[]]

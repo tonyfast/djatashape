@@ -4,6 +4,7 @@ Compute = require './compute'
 class Interactive.History extends Compute
   constructor: ->
     @_checkpoint = @cursor.select 'checkpoint'
+    @_checkpoint.set {}
     @_expression.startRecording 20
     super()
   history: -> @_expression.getHistory()
