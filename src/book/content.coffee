@@ -1,3 +1,4 @@
+Book = require '../book'
 Manager = require './manager'
 Interactive = require '../interactive'
 
