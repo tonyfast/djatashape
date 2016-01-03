@@ -19,10 +19,16 @@ the right handle for coffeetable.
 
     describe "CoffeeTable, the module", ->
       it "imports", ->
-        #{CoffeeTable} = require "../coffeetable"
-        #CoffeeTable.should.be.an "function"
+        {CoffeeTable} = try
+          require "coffeetable"
+        catch error
+          try
+            require "../coffeetable"
+          catch error
+            window?.coffeetable
+        CoffeeTable.should.be.an "function"
 
 ## The Actual Tests
 Each of these is a module that exposes one function which accepts CoffeeTable
 
-        #(require "./basics") CoffeeTable
+        (require "./basics") CoffeeTable

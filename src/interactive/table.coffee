@@ -27,23 +27,23 @@ class Interactive.Table extends ColumnDataSource
       d3.json data, (table_data)=>
         table_data['url'] = @_raw
         @stage
-            raw: table_data
-            index: d3.range table_data.length
-          ,
-            method: 'load'
-            args: [data_or_url]
+          raw: table_data
+          index: d3.range table_data.length
+        ,
+          method: 'load'
+          args: [data_or_url]
         super()
     else
       data = data_or_url
       @stage
-          values: data.values ? [[]]
-          columns: data.columns ? []
-          metadata: data.metadata ? {}
-          readme: data.readme ? null
-          index: d3.range data.values?.length ? 0
-        ,
-          method: 'load'
-          args: [data]
+        values: data.values ? [[]]
+        columns: data.columns ? []
+        metadata: data.metadata ? {}
+        readme: data.readme ? null
+        index: d3.range data.values?.length ? 0
+      ,
+        method: 'load'
+        args: [data]
       super()
 
 Interactive.Table::expr =

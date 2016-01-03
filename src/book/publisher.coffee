@@ -1,5 +1,7 @@
+Book = require '../book'
 Manager = require './manager'
 Template = require './template'
+
 ###
 Publisher is a supercharged d3 selection.  It adds some convience functions to
 enter, exit, and update data.  All of d3 the selection methods are exposed

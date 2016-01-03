@@ -1,4 +1,5 @@
 d3 = require 'd3'
+Book = require '../book'
 
 ###
 ```

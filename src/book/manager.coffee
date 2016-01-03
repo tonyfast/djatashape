@@ -1,4 +1,4 @@
-BookInteractive = require '../book'
+Book = require '../book'
 Interactive = require '../interactive'
 
 ###
