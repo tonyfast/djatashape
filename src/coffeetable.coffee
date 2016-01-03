@@ -1,7 +1,7 @@
 Baobab = require "baobab"
 d3 = require "d3"
-Publisher =  require './publisher'
-Content =  require './content'
+Publisher =  require './book/publisher'
+Content =  require './book/content'
 Book =  require './book'
 
 # interactive tabular data, optimized for the browser

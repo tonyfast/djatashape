@@ -1,6 +1,9 @@
-Manager = require './manager'
+Manager = require './book/manager'
 
 ###
+A Book uses Publishers to create Templates that join to subsets of Content.  The
+Book manager is responsible for nearly all of the content.
+
 ```
 table = new CoffeeTable {}
 table.books.register '#table',
