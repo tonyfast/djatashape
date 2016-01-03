@@ -23,10 +23,10 @@ class CoffeeTable
   # @param [Object] publishers contains many DOM selections
   # @param [Object] books use publishers to present and update conteent
   #
-  constructor: (content={}, publishers={}, books={})->
+  constructor: (content={}, publisher={}, book={})->
     @content = new Content content
-    @publishers = new Publisher publishers
-    @books = new Book books
+    @publisher = new Publisher publisher
+    @book = new Book book
 
   version: '0.1.0'
 
