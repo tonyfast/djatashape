@@ -10,6 +10,6 @@ class Interactive.History extends Compute
   history: -> @_expression.getHistory()
   clear_history: -> @_expression.clearHistory()
   record: (expression)->
-      @expressions.push expression
+    @expressions.push expression
 
 module.exports = Interactive.History
