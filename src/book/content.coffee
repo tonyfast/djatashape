@@ -1,45 +1,29 @@
+d3 = require 'd3'
 Book = require './index'
 Editor = require './editor'
 Interactive = require '../interactive/index'
 
-# Content is a collection of Interactive Tabular data sources.  Content
-# can be consumed by a publisher.  Both data and metadata of the table can
-# be injected into the dom
 ###
-```
-table = new CoffeeTable {}
-table.content.register '#table',
-  columns: [
-    ['x','y']
-  ]
-  values: [
-    [1,2]
-    [8,9]
-  ]
-  metadata:
-    x:
-      units: 'inch'
-      alt: 'width'
-    y:
-      units: 'inch'
-      alt: 'height'
-
-table.content['#table'].tree
-table.content['#table'].cursor
-table.content['#table'].column_data_source
-table.content['#table'].sort().unique().filter().map()
-```
+Content is a collection of Interactive Tabular data sources.  Content
+can be consumed by a publisher.
 ###
-class Book.Content extends Editor
+class Book.Content extends Interactive
   _base_class: Interactive
-  constructor: (data,to_register=[])->
+  _columns: ['name']
+  _metadata:
+    alias: "The name of Tabular data in the SPA"
+  _readme: ""
+
+  constructor: (entries)->
     super
-      values: data.values ? [[]]
-      columns: data.columns ? ['selector']
-      metadata: data.metadata ? id:
-        description: ""
-      readme: "How can I import a readme file"
-    to_register.forEach (value)=>
-      @register value.name, value.args
+      name: 'content'
+      values: d3.keys(entries).map((v)->[v])
+      columns: @_columns
+      metadata: @_metadata
+      readme: @_readme
+
+    d3.entries(entries).forEach ({key,value})=>
+      value['name'] = key
+      @[key] = new Interactive value
 
 module.exports = Book.Content

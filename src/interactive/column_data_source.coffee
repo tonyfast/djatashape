@@ -1,18 +1,21 @@
+d3 = require 'd3'
 Baobab = require "baobab"
 Interactive = require './index'
 DataSource = require './data'
 
 class Interactive.ColumnDataSource extends DataSource
-  constructor: ->
+  constructor: (values, columns)->
     @_cds = @cursor.select 'column_data_source'
-    super()
+    super values, columns
+    @load columns
 
   load: (columns) ->
     columns ?= @columns()
     ### Index monkey is destroyed on the first operation ###
     cds = {}
     columns = Array columns...
-    columns.forEach (column,column_index)=>
+
+    columns.forEach (column)=>
       ### Create Dynamic Nodes for Each Column Data Source ###
       cds = @_column_data_source_monkey column, null, cds
     @stage cds
@@ -30,6 +33,7 @@ class Interactive.ColumnDataSource extends DataSource
     tmp
 
   column_data_source: (columns,force_array=false)->
+
     columns = @_column_name_array columns
     if columns.length > 1 or force_array
       d3.zip columns.map( (c) => @_cds.get(c,'values') )...

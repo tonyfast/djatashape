@@ -14,37 +14,11 @@ class Interactive.Table extends ColumnDataSource
 
   # @param [String] data_or_url url to a json endpoint containing the keys ``values``, ``
   # @param [Object] data_or_url
-  constructor: (data_or_url, @name=null)->
+  constructor: (values, columns, metadata)->
     ## The table can be renamed ###
-    @_name = @cursor.select 'name'
-    @_name.set @name
     @_metadata = @cursor.select 'metadata'
-    super()
-    @load data_or_url
-
-  load: (data_or_url)->
-    if 'string' in [typeof data_or_url]
-      d3.json data, (table_data)=>
-        table_data['url'] = @_raw
-        @stage
-          raw: table_data
-          index: d3.range table_data.length
-        ,
-          method: 'load'
-          args: [data_or_url]
-        super()
-    else
-      data = data_or_url
-      @stage
-        values: data.values ? [[]]
-        columns: data.columns ? []
-        metadata: data.metadata ? {}
-        readme: data.readme ? null
-        index: d3.range data.values?.length ? 0
-      ,
-        method: 'load'
-        args: [data]
-      super()
+    @_metadata.set metadata
+    super values, columns
 
 Interactive.Table::expr =
   concat: ->

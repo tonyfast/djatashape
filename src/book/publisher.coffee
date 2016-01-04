@@ -1,6 +1,7 @@
 Book = require './index'
 Editor = require './editor'
 Template = require './template'
+Interactive = require '../interactive/index'
 
 ###
 Publisher is a supercharged d3 selection.  It adds some convience functions to
@@ -32,19 +33,22 @@ template.render 'tr.index > th', [
 ```
 ###
 
-class Book.Publisher extends Editor
+class Book.Publisher extends Interactive
   _base_class: Template
-
-  constructor: (data,to_register=[])->
-    data ?= {}
-    @
+  _metadata:
+    name: 'Name of the Publisher'
+    selector: 'CSS selector to publisher'
+  _readme: ""
+  constructor: (value)->
     super
-      values: data.values ? [[]]
-      columns: data.columns ? ['selector']
-      metadata: data.metadata ? id:
-        description: "The name of a template in an environment."
-      readme: "How can I import a readme file"
-    to_register.forEach (value)=>
-      @register value.name, value.args
+      name: 'publisher'
+      values: value
+      columns: ['name', 'selector']
+      metadata: @_metadata
+      readme: @_readme
+    value.forEach (entry)=>
+      @[entry[0]] = new Template entry...
+
+
 
 module.exports = Book.Publisher

@@ -18,9 +18,9 @@ class Book.Template
   ###
   @param [string] selector css selector a DOM node
   ###
-  constructor: (@selector, data=[[]])->
+  constructor: (@name, @selector, data=[])->
+    @_into_selection d3.select('body'), @selector, data
     @selection = d3.selectAll @selector
-    @_into_selection @selection, @selector, data
 
   ###
   @param [string] selectors tagName.className1.className2#id
@@ -29,22 +29,25 @@ class Book.Template
   ###
   render: (selectors, data, direction)->
     first_selection = @_into_selection @selection, selectors, data, direction
-    new first_selection
+    new Book.Template first_selection
 
   _into_selection: (selection, selectors, data, direction='down', first_selection=null)->
     [selector, selectors...] = selectors.split '>'
-    [tag,classes...] = selector.split('.')
-    [last_class,id] = last_class.split '#'
-    selector ?= 'div'
-    classes ?= []
+    [tag, classes..., last_class] = selector.split('.')
+    if last_class?
+      [last_class, id] = last_class.split '#'
+    else
+      [tag, id] = tag.split '#'
+      if tag.length == 0 then tag = null
+    tag ?= 'div'
     id ?= null
     selection = selection.selectAll selector
       .data data
     first_selection ?= selection
     if direction in ['down','right']
-      selecter.enter().append tag
+      selection.enter().append tag
     else if direction in ['up','left']
-      selecter.enter().insert tag, ':first-child'
+      selection.enter().insert tag, ':first-child'
     for class_name in classes
       selection.classed class_name, true
     if id? then selection. attr 'id', id

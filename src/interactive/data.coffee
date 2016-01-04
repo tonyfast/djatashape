@@ -3,8 +3,9 @@ Row = require './rows'
 
 class Interactive.DataSource extends Row
   values: (args)-> @_values.get args...
-  constructor: ->
+  constructor: (values, columns)->
     @_values = @cursor.select 'values'
-    super()
+    @_values.set values ? []
+    super columns
 
 module.exports = Interactive.DataSource

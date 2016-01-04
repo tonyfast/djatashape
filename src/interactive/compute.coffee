@@ -4,13 +4,6 @@ Interactive = require './index'
 class Interactive.Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
-    console.log 1,
-      values: @values()
-      index: @index()
-      metadata: @metadata()
-      columns: @columns()
-      readme: @readme()
-
     @_checkpoint.deepMerge
       values: @values()
       index: @index()
@@ -20,6 +13,7 @@ class Interactive.Compute
     this
 
   stage: (new_state,expression=null)->
+
     [update_state, monkeys] = @_split_update_object new_state
     @cursor.deepMerge update_state
     if monkeys.length > 0
@@ -34,7 +28,7 @@ class Interactive.Compute
           if Array.isArray(entry.value)
             ### do nothing ###
           else if typeof(entry.value) in ['object']
-            if updated_state[entry.key]['hasDynamicPaths']?
+            if updated_state[entry.key]?['hasDynamicPaths']?
               monkeys.push
                 path: [path...,entry.key]
                 value: entry.value

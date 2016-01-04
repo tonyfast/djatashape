@@ -1,3 +1,4 @@
+d3 = require 'd3'
 Editor = require './editor'
 Interactive = require '../interactive/index'
 ###
@@ -21,15 +22,17 @@ table.book['#table'].selection.__data__ # is some data appended to the selection
 ###
 class Book extends Editor
   _base_class: Interactive
-  constructor: (data,to_register=[])->
-    data ?= {}
-    super
-      values: data.values ? [[]]
-      columns: data.columns ? ['content','publisher']
-      metadata: data.metadata ? id:
-        description: "The name of a template in an environment."
-      readme: "How can I import a readme file"
-    to_register.forEach (value)=>
-      @register value.name, value.args
+  _columns: ['alias','content','publisher']
+  _metadata:
+    alias: 'Alias of Book that connects Content and a Publisher'
+  _readme: ''
+
+  constructor: (values)->
+    super values
+    d3.range(@length()).forEach (i)=>
+      @[@_cds.get('alias', 'values', i)] =
+        content: @content[@get 'column_data_source', 'content', 'values', i]
+        publisher: @publisher[@get 'column_data_source', 'publisher', 'values', i]
+
 
 module.exports = Book

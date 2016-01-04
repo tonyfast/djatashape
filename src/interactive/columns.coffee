@@ -3,8 +3,9 @@ Expression = require './expression'
 
 class Interactive.Column extends Expression
   columns: (args)-> @_columns.get args...
-  constructor: ->
+  constructor: (columns)->
     @_columns = @cursor.select 'columns'
+    @_columns.set columns ? []
     super()
 
 module.exports = Interactive.Column
