@@ -45,10 +45,21 @@
       <ul class='summary'>
   <li>
     <span class='signature'>
+      <a href='#length-dynamic'>
+        #
+(void)
+<b>length</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
       <a href='#index-dynamic'>
         #
 (void)
-<b>index</b><span>(args)</span>
+<b>index</b><span>(args...)</span>
       </a>
     </span>
     <span class='desc'>
@@ -59,10 +70,12 @@
       <a href='#iloc-dynamic'>
         #
 (void)
-<b>iloc</b><span>()</span>
+<b>iloc</b><span>(selection)</span>
       </a>
     </span>
     <span class='desc'>
+      <p>table.iloc [2,3] table._index.set [2,3,0,1]
+table.iloc [2,3]</p>
     </span>
   </li>
   <li>
@@ -70,10 +83,12 @@
       <a href='#loc-dynamic'>
         #
 (void)
-<b>loc</b><span>()</span>
+<b>loc</b><span>(selection)</span>
       </a>
     </span>
     <span class='desc'>
+      <p>table.loc [2,3] table._index.set [2,3,0,1]
+table.loc [2,3]</p>
     </span>
   </li>
   <li>
@@ -94,7 +109,7 @@
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>()</span>
+<b>constructor</b><span>(values, columns)</span>
       <br>
     </p>
     
@@ -103,10 +118,19 @@
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
+    <p class='signature' id='length-dynamic'>
+      #
+(void)
+<b>length</b><span>()</span>
+      <br>
+    </p>
+    
+  </div>
+  <div class='method_details'>
     <p class='signature' id='index-dynamic'>
       #
 (void)
-<b>index</b><span>(args)</span>
+<b>index</b><span>(args...)</span>
       <br>
     </p>
     
@@ -115,19 +139,31 @@
     <p class='signature' id='iloc-dynamic'>
       #
 (void)
-<b>iloc</b><span>()</span>
+<b>iloc</b><span>(selection)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>table.iloc [2,3]
+table._index.set [2,3,0,1]
+table.iloc [2,3]</p>
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='loc-dynamic'>
       #
 (void)
-<b>loc</b><span>()</span>
+<b>loc</b><span>(selection)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>table.loc [2,3]
+table._index.set [2,3,0,1]
+table.loc [2,3]</p>
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='update-dynamic'>
@@ -141,7 +177,7 @@
 </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

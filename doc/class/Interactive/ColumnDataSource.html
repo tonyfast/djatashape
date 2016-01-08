@@ -45,35 +45,39 @@
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#load-dynamic'>
+      <a href='#apply-dynamic'>
         #
 (void)
-<b>load</b><span>(columns)</span>
+<b>apply</b><span>(args...)</span>
       </a>
     </span>
     <span class='desc'>
+      <p>Create a new interactive data source table.apply &#39;mean&#39;, [&#39;x&#39;,&#39;y&#39;], (x,y)-&gt; d3.zip(x,y).map (v)-&gt; d3.mean v
+table.projection()</p>
     </span>
   </li>
   <li>
     <span class='signature'>
-      <a href='#_column_name_array-dynamic'>
+      <a href='#_add_derived_column-dynamic'>
         #
 (void)
-<b>_column_name_array</b><span>(columns)</span>
+<b>_add_derived_column</b><span>(name, cursors, fn)</span>
       </a>
     </span>
     <span class='desc'>
+      Create a new interactive cursor that defines a new Column Data Source 
     </span>
   </li>
   <li>
     <span class='signature'>
-      <a href='#_column_data_source_monkey-dynamic'>
+      <a href='#concat-dynamic'>
         #
 (void)
-<b>_column_data_source_monkey</b><span>(column, monkey, tmp = {})</span>
+<b>concat</b><span>(append_values)</span>
       </a>
     </span>
     <span class='desc'>
+      # 
     </span>
   </li>
   <li>
@@ -81,7 +85,7 @@
       <a href='#column_data_source-dynamic'>
         #
 (void)
-<b>column_data_source</b><span>(columns, force_array = false)</span>
+<b>column_data_source</b><span>(columns...)</span>
       </a>
     </span>
     <span class='desc'>
@@ -94,7 +98,7 @@
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>()</span>
+<b>constructor</b><span>(values, columns)</span>
       <br>
     </p>
     
@@ -103,37 +107,52 @@
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='load-dynamic'>
+    <p class='signature' id='apply-dynamic'>
       #
 (void)
-<b>load</b><span>(columns)</span>
+<b>apply</b><span>(args...)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Create a new interactive data source
+table.apply &#39;mean&#39;, [&#39;x&#39;,&#39;y&#39;], (x,y)-&gt; d3.zip(x,y).map (v)-&gt; d3.mean v
+table.projection()</p>
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
-    <p class='signature' id='_column_name_array-dynamic'>
+    <p class='signature' id='_add_derived_column-dynamic'>
       #
 (void)
-<b>_column_name_array</b><span>(columns)</span>
+<b>_add_derived_column</b><span>(name, cursors, fn)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Create a new interactive cursor that defines a new Column Data Source</p>
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
-    <p class='signature' id='_column_data_source_monkey-dynamic'>
+    <p class='signature' id='concat-dynamic'>
       #
 (void)
-<b>_column_data_source_monkey</b><span>(column, monkey, tmp = {})</span>
+<b>concat</b><span>(append_values)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <h2 id="append-columns-or-rows-without-monkeys">Append columns or rows without monkeys</h2>
+
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='column_data_source-dynamic'>
       #
 (void)
-<b>column_data_source</b><span>(columns, force_array = false)</span>
+<b>column_data_source</b><span>(columns...)</span>
       <br>
     </p>
     
@@ -141,7 +160,7 @@
 </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

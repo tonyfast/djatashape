@@ -40,16 +40,23 @@
       <div id='filecontents'>
         <h3 id="sorta-real-test">Sorta Real Test</h3>
 <pre><code>module.exports = (CoffeeTable) -&gt;
-  describe &quot;CoffeeTable...&quot;, -&gt;
-    table = new CoffeeTable {}
-    it &quot;has a Baobab&quot;, -&gt;
-      table.tree.should.respondTo &quot;serialize&quot;
-      table.tree.should.respondTo &quot;select&quot;
+  describe &quot;CoffeeTable, the Class&quot;, -&gt;
+    table = null
+
+    beforeEach -&gt;
+      table = new CoffeeTable.Interactive
+        name: &#39;rectangle&#39;
+        columns: [&#39;x&#39;, &#39;y&#39;]
+        values: [[1, 2],[3, 8]]
+
+
+    it &quot;can be instantiated&quot;, -&gt;
+      table.should.be.an.instanceOf CoffeeTable
 </code></pre>
       </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

@@ -30,7 +30,7 @@
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;interactive.coffee</td>
+          <td>src&#47;interactive&#47;index.coffee</td>
         </tr>
         <tr>
           <td>Inherits:</td>
@@ -41,43 +41,25 @@
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>Interactive data sources manipulate table eg. <code>sort</code>,<code>unique</code>,<code>filter</code>,<code>map</code>, <code>groupby</code>, <code>join</code> .
-<code>Baobab</code> trees are interactive and immutable.  They manage the state of the
-tabular data.
-Interactive maintains:</p><ul>
-<li>Table metadata</li>
-<li>ColumnDataSources <code>column_data_source</code> and Row DataSource <code>values</code></li>
-<li><code>History</code> of the compute applied to the table.</li>
-</ul>
-
-  <div class='examples'>
-    <h3>Examples:</h3>
-    <h4>
-      create a new Interactive Data Source
-    </h4>
-    <pre><code class='coffeescript'>table = new Interactive
-  columns: [
-    &#39;x&#39;
-    &#39;y&#39;
-  ]
-  values: [
-    [1, 2]
-    [3, 8]
-  ]
-  metadata:
-    x: {units:&#39;inch&#39;,alias:&#39;length of rectangle&#39;}
-    y: {units:&#39;inch&#39;,alias:&#39;width of rectangle&#39;}</code></pre>
-  </div>
+  <p>An Interactive Table uses immutable cursor trees to track the evolution of
+tabular data.</p>
 </div>
 <div class='tags'>
 </div>
-      <h2>Direct Known Subclasses</h2>
-      <p class='children'>
-        <a href='../class/Book/Manager.html'>Book.Manager</a>
-        <a href='../class/Manager.html'>Manager</a>
-      </p>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#name-dynamic'>
+        #
+(void)
+<b>name</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      # 
+    </span>
+  </li>
   <li>
     <span class='signature'>
       <a href='#readme-dynamic'>
@@ -87,6 +69,80 @@ Interactive maintains:</p><ul>
       </a>
     </span>
     <span class='desc'>
+      # 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#reset-dynamic'>
+        #
+(void)
+<b>reset</b><span>()</span>
+      </a>
+    </span>
+    <span class='desc'>
+      # 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#projection-dynamic'>
+        #
+(void)
+<b>projection</b><span>(columns...)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Project selects a subset of columns 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#transform-dynamic'>
+        #
+(void)
+<b>transform</b><span>(transformers)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Transform adds named columns to the table are defined by <code>cursors</code> and a function <code>fn</code>.
+
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#filter-dynamic'>
+        #
+(void)
+<b>filter</b><span>(columns..., fn)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Filter elements columns based on a predicate function. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#concat-dynamic'>
+        #
+(void)
+<b>concat</b><span>(new_values)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Concatenate new values to the table. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#apply-dynamic'>
+        #
+(void)
+<b>apply</b><span>(args...)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Apply a function to a column 
     </span>
   </li>
 </ul>
@@ -96,14 +152,61 @@ Interactive maintains:</p><ul>
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>(data_or_url, table_name)</span>
+<b>constructor</b><span>(record_orient_data)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>Create a new interactive table.  An Interactive Table is similar to a DataFrame
+in that it is both a list and column data source.  Rows and columns can be
+accessed independently.  Operations can be applied to both rows and columns.</p><p>values.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Create a new interactive table
+    </h4>
+    <pre><code class='coffeescript'>table = new CoffeeTable
+  columns: [&#39;x&#39;, &#39;y&#39;]
+  values: [
+    [1, 2]
+    [3, 8]
+    [-1,4]
+    [5,7]
+  ]</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>record_orient_data</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Record orient data contains the columns and </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
       <h2>Instance Method Details</h2>
       <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='name-dynamic'>
+      #
+(void)
+<b>name</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <h2 id="table-name-baobab-cursor">Table name Baobab cursor</h2>
+
+</div>
+<div class='tags'>
+</div>
+  </div>
   <div class='method_details'>
     <p class='signature' id='readme-dynamic'>
       #
@@ -111,12 +214,194 @@ Interactive maintains:</p><ul>
 <b>readme</b><span>()</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <h2 id="table-information-in-readme-baobab-cursor">Table information in readme Baobab cursor</h2>
+
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='reset-dynamic'>
+      #
+(void)
+<b>reset</b><span>()</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <h2 id="reset-the-table-back-to-its-initial-state">Reset the Table back to its initial state</h2>
+
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='projection-dynamic'>
+      #
+(void)
+<b>projection</b><span>(columns...)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Project selects a subset of columns</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Selection the index, x, and y
+    </h4>
+    <pre><code class='coffeescript'>table.projection &#39;index&#39;,&#39;x&#39;,&#39;y&#39;</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='transform-dynamic'>
+      #
+(void)
+<b>transform</b><span>(transformers)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Transform adds named columns to the table
+are defined by <code>cursors</code> and a function <code>fn</code>.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Create two new columns mean and std.
+    </h4>
+    <pre><code class='coffeescript'>table.transform
+  mean: { cursors: [&#39;x&#39;,&#39;y&#39;], fn: (x,y)-&gt; (x+y)&#47;2 }
+  std: { cursors: [&#39;x&#39;,&#39;y&#39;], fn: require(&#39;d3&#39;).deviation }</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>transformers</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>is an object of named columns.  The new columns </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='filter-dynamic'>
+      #
+(void)
+<b>filter</b><span>(columns..., fn)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Filter elements columns based on a predicate function.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Filter columns ``x`` and ``y``
+    </h4>
+    <pre><code class='coffeescript'>table.filter &#39;x&#39;,&#39;y&#39;, (x,y)-&gt; x &gt; 0 and y &lt; 5</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>columns</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>a list of columns to include in the predicate function </span>
+    </li>
+    <li>
+      <span class='name'>fn</span>
+      <span class='type'>
+        (
+          <tt>Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>a predicate function with access to each of the columns. </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='concat-dynamic'>
+      #
+(void)
+<b>concat</b><span>(new_values)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Concatenate new values to the table.
+append in the column direction or row direction, respectively.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Add a Two Rows
+    </h4>
+    <pre><code class='coffeescript'>table.concat
+  values: [
+    [-3,4]
+    [1,9]
+  ]</code></pre>
+    <h4>
+      Add One Column.  The Array has a length of six because two rows were just added.
+    </h4>
+    <pre><code class='coffeescript'>table.concat
+  columns:
+    z: [-3,4,1,9,6,-4]</code></pre>
+  </div>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>new_values</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>responds to the keys <code>columns</code> and <code>values</code> to </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='apply-dynamic'>
+      #
+(void)
+<b>apply</b><span>(args...)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Apply a function to a column</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      Apply a function to x depending on y
+    </h4>
+    <pre><code class='coffeescript'>table.apply &#39;x&#39;, [&#39;x&#39;,&#39;y&#39;], (x,y)-&gt; d3.zip(x,y).map (v)-&gt; d3.mean v</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

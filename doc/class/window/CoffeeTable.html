@@ -19,103 +19,112 @@
       Index
     </a>
     &raquo;
-    <span class='title'>Interactive</span>
+    <span class='title'>window</span>
     &raquo;
-    <span class='title'>Table</span>
+    <span class='title'>CoffeeTable</span>
   </div>
 </div>
     <div id='content'>
       <h1>
         Class:
-        Interactive.Table
+        window.CoffeeTable
       </h1>
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;interactive&#47;table.coffee</td>
-        </tr>
-        <tr>
-          <td>Inherits:</td>
-          <td>
-            ColumnDataSource
-          </td>
+          <td>src&#47;coffeetable.coffee</td>
         </tr>
       </table>
-      <h2>Instance Method Summary</h2>
-      <ul class='summary'>
-  <li>
-    <span class='signature'>
-      <a href='#metadata-dynamic'>
-        #
-(void)
-<b>metadata</b><span>(args)</span>
-      </a>
-    </span>
-    <span class='desc'>
-      # 
-    </span>
-  </li>
-</ul>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>interactive tabular data, optimized for the browser</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      A complete example.
+    </h4>
+    <pre><code class='coffeescript'>    d3.select(&#39;body&#39;).html(&#39;&#39;).append(&#39;div&#39;).attr &#39;id&#39;,&#39;table&#39;
+    d3.select(&#39;body&#39;).append(&#39;div&#39;).append(&#39;span&#39;).attr &#39;id&#39;,&#39;text&#39;
+
+    books = new CoffeeTable
+        rectangle:
+          columns: [&#39;x&#39;, &#39;y&#39;]
+          values: [[1, 2],[3, 8]]
+      , [[&#39;table&#39;,&#39;#table&#39;],[&#39;text&#39;,&#39;#text&#39;]]
+      , [[&#39;table&#39;,&#39;rectangle&#39;,&#39;table&#39;],[&#39;text&#39;,&#39;rectangle&#39;,&#39;text&#39;]]
+
+    books.book[&#39;table&#39;].render &#39;tr.values&gt;th.index&#39;, (()-&gt;@index()), &#39;left&#39;
+    books.book[&#39;table&#39;].render &#39;tr.values&gt;td.values&#39;, (()-&gt;@columns())
+    books.book[&#39;table&#39;].render &#39;tr.columns&gt;th.columns&#39;, (()-&gt;[null, @columns()...]),  &#39;up&#39;
+    books.book[&#39;table&#39;].glue
+      content:
+        index: (index)=&gt; books.book[&#39;table&#39;].render &#39;tr.values&gt;th.index&#39;
+        values: (values)=&gt; books.book[&#39;table&#39;].render &#39;tr.values &gt; td.values&#39;, values
+      browser:
+        th.columns:
+          click: (data)-&gt; @sort data
+          mouseon: (data)-&gt; console.log data</code></pre>
+  </div>
+</div>
+<div class='tags'>
+</div>
+      <h2>Variables Summary</h2>
+      <dl class='constants'>
+  <dt id='version-variable'>
+    version
+    =
+  </dt>
+  <dd>
+    <pre><code class='coffeescript'>&#39;0.1.0&#39;</code></pre>
+    
+  </dd>
+</dl>
       <h2>Constructor Details</h2>
       <div class='methods'>
   <div class='method_details'>
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>({values, columns, metadata})</span>
+<b>constructor</b><span>(url)</span>
       <br>
     </p>
-    <div class='tags'>
+    <div class='docstring'>
+  <p>Construct a collection of CoffeeTable books.</p>
+</div>
+<div class='tags'>
   <h3>Parameters:</h3>
   <ul class='param'>
     <li>
-      <span class='name'>columns</span>
-      <span class='type'>
-        (
-          <tt>Array</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>The name of the table columns </span>
-    </li>
-    <li>
-      <span class='name'>values</span>
-      <span class='type'>
-        (
-          <tt>Array</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>The values of the table. </span>
-    </li>
-    <li>
-      <span class='name'>metadata</span>
+      <span class='name'>content</span>
       <span class='type'>
         (
           <tt>Object</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>An object describing the columns </span>
+      <span class='desc'>contains many Tabular datasets </span>
+    </li>
+    <li>
+      <span class='name'>publisher</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>contains many DOM selections </span>
+    </li>
+    <li>
+      <span class='name'>book</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>use publishers to present and update conteent </span>
     </li>
   </ul>
-</div>
-  </div>
-</div>
-      <h2>Instance Method Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='metadata-dynamic'>
-      #
-(void)
-<b>metadata</b><span>(args)</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <h2 id="return-the-metadata-of-the-columns">Return the metadata of the columns</h2>
-
-</div>
-<div class='tags'>
 </div>
   </div>
 </div>

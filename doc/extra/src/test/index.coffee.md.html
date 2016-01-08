@@ -51,14 +51,20 @@ the right handle for coffeetable.</p><pre><code>CoffeeTable = null
 
 describe &quot;CoffeeTable, the module&quot;, -&gt;
   it &quot;imports&quot;, -&gt;
-    #{CoffeeTable} = require &quot;../coffeetable&quot;
-    #CoffeeTable.should.be.an &quot;function&quot;
-</code></pre><h2 id="the-actual-tests">The Actual Tests</h2><p>Each of these is a module that exposes one function which accepts CoffeeTable</p><pre><code>    #(require &quot;./basics&quot;) CoffeeTable
+    {CoffeeTable} = try
+      require &quot;coffeetable&quot;
+    catch error
+      try
+        require &quot;../coffeetable&quot;
+      catch error
+        window?.coffeetable
+    CoffeeTable.should.be.an &quot;function&quot;
+</code></pre><h2 id="the-actual-tests">The Actual Tests</h2><p>Each of these is a module that exposes one function which accepts CoffeeTable</p><pre><code>    (require &quot;./basics&quot;) CoffeeTable
 </code></pre>
       </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

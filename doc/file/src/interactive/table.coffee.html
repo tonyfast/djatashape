@@ -49,21 +49,6 @@
       </table>
       <h2>Variables Summary</h2>
       <dl class='constants'>
-  <dt id='Interactive.Table.prototype.expr-variable'>
-    Interactive.Table.prototype.expr
-    =
-  </dt>
-  <dd>
-    <pre><code class='coffeescript'>{
-  concat: function() {},
-  head: function() {},
-  tail: function() {},
-  sort: function() {},
-  filter: function() {},
-  map: function() {}
-}</code></pre>
-    
-  </dd>
   <dt id='module.exports-variable'>
     module.exports
     =
@@ -84,6 +69,7 @@
       </a>
     </span>
     <span class='desc'>
+      A formatted string of the table. 
     </span>
   </li>
   <li>
@@ -91,10 +77,11 @@
       <a href='#Interactive-'>
         ~
 (void)
-<b>Interactive</b><span>()</span>
+<b>Interactive</b><span>(index = true)</span>
       </a>
     </span>
     <span class='desc'>
+      JSONify the current state of the table. 
     </span>
   </li>
 </ul>
@@ -107,21 +94,42 @@
 <b>Interactive</b><span>()</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>A formatted string of the table.</p>
+</div>
+<div class='tags'>
+</div>
   </div>
   <div class='method_details'>
     <p class='signature' id='Interactive-'>
       ~
 (void)
-<b>Interactive</b><span>()</span>
+<b>Interactive</b><span>(index = true)</span>
       <br>
     </p>
-    
+    <div class='docstring'>
+  <p>JSONify the current state of the table.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>index</span>
+      <span class='type'>
+        (
+          <tt>Boolean</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>True includes the index in the JSON string. </span>
+    </li>
+  </ul>
+</div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:14:49 by
+  January 07, 16 21:16:20 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
