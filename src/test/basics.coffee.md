@@ -37,7 +37,7 @@
             values: [[1, 3],[2, 8],[3,13]]
           table = new CoffeeTable.Interactive init
 
-        it "can select Rows"
+        it "can select Rows", ->
 
       describe "Working with Columns", ->
         table = null
