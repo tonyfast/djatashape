@@ -1,4 +1,3 @@
-d3 = require 'd3'
 Interactive = require './index'
 ColumnDataSource = require './column_data_source'
 
@@ -10,25 +9,39 @@ ColumnDataSource = require './column_data_source'
 # The table keys  naming is inspired by ``pandas.DataFrame.to_dict(orient='records').
 
 class Interactive.Table extends ColumnDataSource
-  metadata: (args)-> @_metadata.get args...
+  ### Return the metadata of the columns ###
+  metadata: (args)->
+    if args?
+      tmp = {}
+      args.forEach (arg)=> tmp[arg] = arg
+      @_metadata.project tmp
+    else
+      @_metadata.get
 
-  # @param [String] data_or_url url to a json endpoint containing the keys ``values``, ``
-  # @param [Object] data_or_url
-  constructor: (values, columns, metadata)->
+  # @param [Array] columns The name of the table columns
+  # @param [Array] values The values of the table.
+  # @param [Object] metadata An object describing the columns
+  constructor: ({values, columns, metadata})->
     ## The table can be renamed ###
     @_metadata = @cursor.select 'metadata'
-    @_metadata.set metadata
+    @_metadata.set @_metadata.get() ? metadata
     super values, columns
+    @compute()
 
-Interactive.Table::expr =
-  concat: ->
-  head: ->
-  tail: ->
-  sort: ->
-  filter: ->
-  map: ->
-
+###
+A formatted string of the table.
+###
 Interactive.Table::to_string = ->
-Interactive.Table::to_json =  ->
+###
+JSONify the current state of the table.
+
+@param [Boolean] index True includes the index in the JSON string.
+###
+Interactive.Table::to_json = (index=on)->
+  cursors =
+    columns: ['columns']
+    values: ['values']
+  if index then cursors['index'] = ['index']
+  JSON.stringify @cursor.project cursors
 
 module.exports = Interactive.Table

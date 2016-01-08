@@ -5,13 +5,11 @@
         table = null
 
         beforeEach ->
-          table = new CoffeeTable
-                rectangle:
-                  columns: ['x', 'y']
-                  values: [[1, 2],[3, 8]]
-              , [['table','#table'],['text','#text']]
-              , [['table','rectangle','table'],['text','rectangle','text']]
-            
+          table = new CoffeeTable.Interactive
+            name: 'rectangle'
+            columns: ['x', 'y']
+            values: [[1, 2],[3, 8]]
+
 
         it "can be instantiated", ->
           table.should.be.an.instanceOf CoffeeTable

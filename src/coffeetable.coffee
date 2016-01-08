@@ -1,9 +1,5 @@
 Baobab = require "baobab"
 d3 = require "d3"
-Publisher =  require './book/publisher'
-Content =  require './book/content'
-Book =  require './book/index'
-InteractiveGraph =  require './interactive/interactive_graph'
 ###
 interactive tabular data, optimized for the browser
 
@@ -37,25 +33,28 @@ class window.CoffeeTable
   # @param [Object] content contains many Tabular datasets
   # @param [Object] publisher contains many DOM selections
   # @param [Object] book use publishers to present and update conteent
-  constructor: (contents={}, publishers={}, books={})->
-    @content = new Content contents
-    @publisher = new Publisher publishers
-    @book = new InteractiveGraph 'book', books, @content, @publisher
+  constructor: (@url)-> d3.json @url, (d)-> super d
+
   version: '0.1.0'
 
-CoffeeTable.Template = require './book/template'
 CoffeeTable.Interactive = require './interactive'
 CoffeeTable.InteractiveGraph = require './interactive'
-CoffeeTable.Publisher = Publisher
-
-window.books = new CoffeeTable
-    rectangle:
-      columns: ['x', 'y']
-      values: [[1, 2],[3, 8]]
-  , [['table','#table'],['text','#text']]
-  , [['table','rectangle','table'],['text','rectangle','text']]
 
 
+window.table = new CoffeeTable.Interactive
+  columns: ['x', 'y']
+  values: [
+    [1, 2]
+    [3, 8]
+    [-1,4]
+    [5,7]
+  ]
+window.square = new CoffeeTable.Interactive
+  columns: ['x', 'y']
+  values: [
+    [1, 1]
+    [7,7]
+  ]
 module.exports = {
   CoffeeTable
   d3
