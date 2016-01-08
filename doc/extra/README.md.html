@@ -35,44 +35,14 @@
       </nav>
       <div id='filecontents'>
         <h1 id="coffeetable-build-status-https-travis-ci-org-tonyfast-coffeetable-svg-branch-master-https-travis-ci-org-tonyfast-coffeetable-">CoffeeTable <a href="https://travis-ci.org/tonyfast/coffeetable"><img src="https://travis-ci.org/tonyfast/coffeetable.svg?branch=master" alt="Build Status"></a></h1><p>CoffeeTable manages many tabular data sources in single page web applications.  </p><h2 id="getting-started">Getting Started</h2>
-<pre><code class="lang-coffee">books = new CoffeeTable()
-
-# What content is being published?
-books.content.register &#39;#table&#39;,
-  columns: [&#39;x&#39;,&#39;y&#39;]
-  values: [[1,2],[8,9]]
-# How is it being published?
-books.publisher.register &#39;#table&#39;, d3.select &#39;#table&#39;
-books.publisher.register &#39;text&#39;, &#39;p.text&#39;
-
-# What content belongs to what publisher?
-books.book.register &#39;#table&#39;,
-  values: [[&#39;#table&#39;, &#39;#table&#39;, &#39;#table&#39;],[&#39;text&#39;,&#39;#table&#39;,&#39;text&#39;]]
-  columns: [&#39;name&#39;, &#39;content&#39;, &#39;publisher&#39;]
-
-books.book[&#39;text&#39;].selection.text &quot;&quot;&quot;
-The average of x is #{d3.mean books.book[&#39;text&#39;].column_data_source &#39;x&#39;}
-andy is #{d3.mean books.book[&#39;text&#39;].column_data_source &#39;y&#39;}.
-&quot;&quot;&quot;
-
-books.book[&#39;&#39;]
-</code></pre><p><img src="https://s-media-cache-ak0.pinimg.com/736x/4c/b9/a7/4cb9a7648f5800dd958a4baa2af387e4.jpg" alt="Coffee Tables by Kramer"></p><h2 id="books">Books</h2>
-<pre><code class="lang-coffee">new Book.book.register &#39;#table&#39;, &#39;#table&#39;,  data
-</code></pre>
-<h3 id="publishers">Publishers</h3>
-<pre><code class="lang-coffee">new Book.Publisher &#39;a-name&#39;, &#39;#table&#39;
-new Book.Publisher &#39;a-name&#39;, d3.select &#39;#table&#39;
-</code></pre>
-<h3 id="contents">Contents</h3>
-<pre><code class="lang-coffee">new Book.Content &#39;some-name&#39;
-  values: [[1,2],[8,9]]
-  columns: [&#39;x&#39;,&#39;y&#39;]
-  metadata:
-    x: {}
-    y: {}
-  readme: &quot;&quot;&quot;
-  Describes the underlying dataset with 2 rows and 2 columns ``x`` and ``y``.
-  &quot;&quot;&quot;
+<pre><code class="lang-coffee">table = new CoffeeTable
+  columns: [&#39;x&#39;, &#39;y&#39;]
+  values: [
+    [1, 2]
+    [3, 8]
+    [-1,4]
+    [5,7]
+  ]
 </code></pre>
 <h2 id="developing">Developing</h2><p>Get npm.</p><pre><code class="lang-bash">npm install
 npm run testem
@@ -143,7 +113,7 @@ routes with interesting stuff:</p><ul>
       </div>
     </div>
     <div id='footer'>
-  January 07, 16 21:16:20 by
+  January 07, 16 21:20:23 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
