@@ -1,39 +1,47 @@
+d3 = require 'd3'
 Baobab = require "baobab"
-Interactive = require '../interactive'
+Interactive = require './index'
 DataSource = require './data'
 
 class Interactive.ColumnDataSource extends DataSource
-  constructor: ->
+  constructor: (values, columns)->
     @_cds = @cursor.select 'column_data_source'
-    super()
+    super values, columns
+    columns.map (column_name)=> @apply column_name
 
-  load: (columns) ->
-      columns ?= @columns()
-      ### Index monkey is destroyed on the first operation ###
-      cds = {}
-      columns = Array columns...
-      columns.forEach (column,column_index)=>
-        ### Create Dynamic Nodes for Each Column Data Source ###
-        cds = @_column_data_source_monkey column, null, cds
-      @stage cds
+  ### Create a new interactive data source
+  table.apply 'mean', ['x','y'], (x,y)-> d3.zip(x,y).map (v)-> d3.mean v
+  table.projection()
+  ###
+  apply: (args...)-> @_add_derived_column args...
+  ###
+  Create a new interactive cursor that defines a new Column Data Source
+  ###
+  _add_derived_column: (name, cursors, fn)->
+    cursors ?= [['columns',0],['values'],['.','name']]
+    fn ?= (columns,values,column_name)->
+      column_index = columns.indexOf column_name
+      values.map (row_values)-> row_values[column_index]
+    @_cds.set name,
+        name: name
+        values: Baobab.monkey cursors..., fn
+    ### Always push derived columns to second part of columns ###
+    unless name in ['index',@derived()...]
+      @_columns.select(1).push name
 
-  _column_name_array: (columns)-> if not Array.isArray columns then [columns] else columns
 
-  _column_data_source_monkey: (column,monkey,tmp={})->
-      tmp['column_data_source'] ?= {}
-      monkey ?= Baobab.monkey ['columns'],['values'],['.','name'], (columns,values,column_name)->
-              column_index = columns.indexOf column_name
-              values.map (row_values)=> row_values[column_index]
-      tmp['column_data_source'][column] =
-          name: column
-          values: monkey
-      tmp
+  ### Append columns or rows without monkeys ###
+  concat: (append_values)->
+    if append_values.columns?
+      d3.entries(append_values.columns).forEach ({name,cursors,fn})=>
+        @_columns.push name
+        @_values.set @values().map (row,i)=> row.push new_value[i]
+    super append_values
+    this
 
-  column_data_source: (columns,force_array=false)->
-    columns = @_column_name_array columns
-    if columns.length > 1 or force_array
-      d3.zip columns.map( (c) => @_cds.get(c,'values') )...
-    else
-      @_cds.get(columns[0],'values')
+
+  column_data_source: (columns...)->
+    if columns.length == 0 then columns = @derived()
+    d3.zip columns.map( (c) => @_cds.get(c,'values'))...
 
 module.exports = Interactive.ColumnDataSource

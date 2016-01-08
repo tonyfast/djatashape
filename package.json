@@ -14,6 +14,11 @@
     "mocha-istanbul": "^0.2.0",
     "testem": "^0.9.11"
   },
+  "coffeelintConfig": {
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
   "license": "ISC",
   "main": "lib/coffeetable.js",
   "name": "coffeetable",
@@ -23,7 +28,7 @@
     "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x coffeetable --ignore-missing -o lib/test/index.js",
     "coverage": "istanbul report",
     "docs": "codo src - src/test/*",
-    "lint": "coffeelint src/*.coffee src/test/*.coffee.md",
+    "lint": "coffeelint src/**/*.coffee src/**/*.coffee.md",
     "test-js": "mocha --recursive -R tap lib/test/*.js",
     "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
     "testem": "testem"

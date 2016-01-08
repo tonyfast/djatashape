@@ -9,9 +9,9 @@ before_tests: |
   npm run build-test \
     && npm run build-deps \
     && npm run build \
-    && npm run docs \
-    && (npm run test || true) \
-    && npm run coverage
+    && npm run docs
+    # && (npm run test || true) \
+    # && npm run coverage
 
 serve_files:
   - lib/test/lib/*.js
@@ -19,9 +19,8 @@ serve_files:
   - lib/test/*.js
 
 src_files:
-  - src/*.coffee
-  - src/interactive/*.coffee
-  - src/test/*.coffee.md
+  - src/**/*.coffee
+  - src/**/*.coffee.md
 
 routes:
   /doc: doc #http://localhost:7357/doc/index.html

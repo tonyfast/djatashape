@@ -1,10 +1,15 @@
-Interactive = require '../interactive'
+Interactive = require './index'
 Row = require './rows'
 
 class Interactive.DataSource extends Row
-  values: (args)-> @_values.get args...
-  constructor: ->
+  values: ()-> @_values.get()
+  constructor: (values, columns)->
     @_values = @cursor.select 'values'
-    super()
+    @_values.set values ? []
+    super values, columns
+
+  concat: (append_rows)->
+    append_rows.values?.forEach (row)=> @_values.push row
+    this
 
 module.exports = Interactive.DataSource

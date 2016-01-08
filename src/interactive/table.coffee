@@ -1,5 +1,4 @@
-d3 = require 'd3'
-Interactive = require '../interactive'
+Interactive = require './index'
 ColumnDataSource = require './column_data_source'
 
 # Table assigns metadata to the Interactive data source
@@ -10,51 +9,39 @@ ColumnDataSource = require './column_data_source'
 # The table keys  naming is inspired by ``pandas.DataFrame.to_dict(orient='records').
 
 class Interactive.Table extends ColumnDataSource
-  metadata: (args)-> @_metadata.get args...
-
-  # @param [String] data_or_url url to a json endpoint containing the keys ``values``, ``
-  # @param [Object] data_or_url
-  constructor: (data_or_url, @name=null)->
-    ## The table can be renamed ###
-    @_name = @cursor.select 'name'
-    @_name.set @name
-    @_metadata = @cursor.select 'metadata'
-    super()
-    @load data_or_url
-
-  load: (data_or_url)->
-    if 'string' in [typeof data_or_url]
-      d3.json data, (table_data)=>
-        table_data['url'] = @_raw
-        @stage
-            raw: table_data
-            index: d3.range table_data.length
-          ,
-            method: 'load'
-            args: [data_or_url]
-        super()
+  ### Return the metadata of the columns ###
+  metadata: (args)->
+    if args?
+      tmp = {}
+      args.forEach (arg)=> tmp[arg] = arg
+      @_metadata.project tmp
     else
-      data = data_or_url
-      @stage
-          values: data.values ? [[]]
-          columns: data.columns ? []
-          metadata: data.metadata ? {}
-          readme: data.readme ? null
-          index: d3.range data.values?.length ? 0
-        ,
-          method: 'load'
-          args: [data]
-      super()
+      @_metadata.get
 
-Interactive.Table::expr =
-  concat: ->
-  head: ->
-  tail: ->
-  sort: ->
-  filter: ->
-  map: ->
+  # @param [Array] columns The name of the table columns
+  # @param [Array] values The values of the table.
+  # @param [Object] metadata An object describing the columns
+  constructor: ({values, columns, metadata})->
+    ## The table can be renamed ###
+    @_metadata = @cursor.select 'metadata'
+    @_metadata.set @_metadata.get() ? metadata
+    super values, columns
+    @compute()
 
+###
+A formatted string of the table.
+###
 Interactive.Table::to_string = ->
-Interactive.Table::to_json =  ->
+###
+JSONify the current state of the table.
+
+@param [Boolean] index True includes the index in the JSON string.
+###
+Interactive.Table::to_json = (index=on)->
+  cursors =
+    columns: ['columns']
+    values: ['values']
+  if index then cursors['index'] = ['index']
+  JSON.stringify @cursor.project cursors
 
 module.exports = Interactive.Table

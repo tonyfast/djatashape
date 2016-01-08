@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  </script><script src="./lib/coffeetable.js"></script><script src="./lib/test/vendor.js"></script>
+</head>
+<body>
+  <script>
+    window.books = new CoffeeTable(
+      {rectangle: {
+        columns: ['x','y'],
+        values: [[1, 2],[3, 8]]
+      }}, [
+        ['table','#table'],
+        ['text','#text']
+      ], [
+        ['table','rectangle','table'],
+        ['text','rectangle','text']
+      ]
+
+    )
+    </script>
+</body>
+</html>

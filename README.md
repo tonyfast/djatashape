@@ -28,6 +28,8 @@ andy is #{d3.mean books.book['text'].column_data_source 'y'}.
 books.book['']
 ```
 
+![Coffee Tables by Kramer](https://s-media-cache-ak0.pinimg.com/736x/4c/b9/a7/4cb9a7648f5800dd958a4baa2af387e4.jpg)
+
 ## Books
 
 ```coffee
