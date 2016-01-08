@@ -14,7 +14,6 @@ class Interactive.Column extends Expression
     @_columns.set [columns,[]] ? [[],[]]
     # update the values when the raw_columns change
     @_columns.select(1).on 'update', (event)=>
-      console.log event
       [event.data.previousData...].filter (d)=> not d in event.data.currentData
         .forEach (column_name)-> @_cds[column_name].release()
     super()

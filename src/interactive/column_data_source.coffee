@@ -31,13 +31,15 @@ class Interactive.ColumnDataSource extends DataSource
 
 
   ### Append columns or rows without monkeys ###
-  concat: (append_values)->
-    if append_values.columns?
-      d3.entries(append_values.columns).forEach ({name,cursors,fn})=>
-        @_columns.push name
-        @_values.set @values().map (row,i)=> row.push new_value[i]
-    super append_values
-    this
+  concat: ({columns,values})->
+    if columns?
+      #alert JSON.stringify columns
+      d3.entries(columns).forEach ({key, value})=>
+        ### Append the value to the raw columns ###
+        @_columns.select(0).push key
+        @_values.set @values().map (row,i)=> [row...,value[i]]
+        @_add_derived_column key
+    super values
 
 
   column_data_source: (columns...)->

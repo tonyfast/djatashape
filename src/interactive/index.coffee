@@ -8,12 +8,12 @@ tabular data.
 ###
 class Interactive extends Table
   ### Table name Baobab cursor ###
-  name: ()-> @cursor.get 'name'
+  name: ()-> @_name.get()
   ### Table information in readme Baobab cursor ###
-  readme: ()-> @cursor.get 'readme'
+  readme: ()-> @_readme.get()
   ### Reset the Table back to its initial state  ###
   reset: ()->
-    @cursor.deepMerge @cursor.get 'init'
+    @cursor.deepMerge @_init.get()
     this
   ###
   Create a new interactive table.  An Interactive Table is similar to a DataFrame
@@ -34,15 +34,24 @@ class Interactive extends Table
       ]
   ###
   constructor: (record_orient_data)->
+
     @tree = new Baobab record_orient_data
     @cursor = @tree.select 0
-    @cursor.set 'init', record_orient_data
+
+    @_init = @cursor.select 'init'
+    @_init.set record_orient_data
+
     @_readme = @cursor.select 'readme'
-    @_readme.set @_readme.get() ? ""
+    @_readme.set record_orient_data.readme ? ""
+
+    @_name = @cursor.select 'name'
+    @_name.set record_orient_data.name ? "Some name"
+
     super @cursor.project
       values: ['values']
       columns: ['columns']
       metadata: ['metadata']
+
     @compute()
 
   ###
@@ -68,7 +77,7 @@ class Interactive extends Table
   transform: (transformers)->
     d3.entries transformers
       .forEach ({key,value})=>
-        {cursors, fn} = value
+        [cursors...,fn] = value
         @_add_derived_column key, cursors.map((col)->['column_data_source',col,'values']), fn
     @_expression.push ['transform', transformers]
     this
@@ -88,6 +97,7 @@ class Interactive extends Table
     @values.set values
     @_expression.push ['filter', columns..., fn.toString()]
     this
+
   ###
   Concatenate new values to the table.
   @param [Object] new_values responds to the keys ``columns`` and ``values`` to
@@ -103,9 +113,11 @@ class Interactive extends Table
       columns:
         z: [-3,4,1,9,6,-4]
   ###
-  concat: (new_values)->
-    super new_values
-    @_expression.push ['concat',new_values]
+  concat: (value_object)->
+    super value_object
+    @_expression.push ['concat',value_object]
+    this
+
   ###
   Apply a function to a column
   @example Apply a function to x depending on y

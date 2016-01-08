@@ -8,8 +8,8 @@ class Interactive.DataSource extends Row
     @_values.set values ? []
     super values, columns
 
-  concat: (append_rows)->
-    append_rows.values?.forEach (row)=> @_values.push row
+  concat: (values)->
+    values?.forEach (row)=> @_values.push row
     this
 
 module.exports = Interactive.DataSource
