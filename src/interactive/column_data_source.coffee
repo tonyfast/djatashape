@@ -14,6 +14,7 @@ class Interactive.ColumnDataSource extends DataSource
   table.projection()
   ###
   apply: (args...)-> @_add_derived_column args...
+
   ###
   Create a new interactive cursor that defines a new Column Data Source
   ###

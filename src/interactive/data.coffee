@@ -10,6 +10,7 @@ class Interactive.DataSource extends Row
 
   concat: (values)->
     values?.forEach (row)=> @_values.push row
+    super values?.length ? 0
     this
 
 module.exports = Interactive.DataSource

@@ -3,24 +3,28 @@ d3 = require 'd3'
 Table = require './table'
 
 ###
-An Interactive Table uses immutable cursor trees to track the evolution of
-tabular data.
+An Interactive Table uses immutable cursor trees to track the evolution history at a table state.
+  It is similar to a DataFrame because it's rows and columns can be accessed independently.  The
+state of the table can be used to publish data-driven content to a webpage.  Most
+data that is generated from an API endpoint can be represented as a table; more
+complex scenarios can be decoupled to independent tables.  Decoupled tables can manipulated
+independently and joined with other tables.
+
 ###
 class Interactive extends Table
   ### Table name Baobab cursor ###
   name: ()-> @_name.get()
   ### Table information in readme Baobab cursor ###
   readme: ()-> @_readme.get()
-  ### Reset the Table back to its initial state  ###
+  ### Reset the Table back to state when the last new class was instantiated  ###
   reset: ()->
     @cursor.deepMerge @_init.get()
     this
-  ###
-  Create a new interactive table.  An Interactive Table is similar to a DataFrame
-  in that it is both a list and column data source.  Rows and columns can be
-  accessed independently.  Operations can be applied to both rows and columns.
 
-  @param [Object] record_orient_data Record orient data contains the columns and
+  ###
+  Create a new interactive table.
+
+  @param [{columns, values, readme, metadata}] record_orient_data Record orient data contains the columns and
   values.
 
   @example Create a new interactive table
@@ -44,14 +48,19 @@ class Interactive extends Table
     @_readme = @cursor.select 'readme'
     @_readme.set record_orient_data.readme ? ""
 
-    @_name = @cursor.select 'name'
-    @_name.set record_orient_data.name ? "Some name"
-
     super @cursor.project
+      name: ['name']
       values: ['values']
       columns: ['columns']
       metadata: ['metadata']
 
+    @tree.on 'write', (event)->
+      # This is the cursor tree context
+      if 'index' in event.data.path and event.data.path.length == 1
+        values = @get 'values'
+        new_index = @get 'index'
+        old_index = @select('index').getHistory(1)[0] ? d3.range new_index.length
+        @set 'values', new_index.map (i)=> values[old_index.indexOf i]
     @compute()
 
   ###
