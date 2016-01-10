@@ -12,10 +12,10 @@
             metadata: {x:'horizontal direction',y:'vertical direction'}
             columns: ['x', 'y']
             values: [[1, 3],[2, 8],[3,13]]
-          table = new CoffeeTable.Interactive init
+          table = new CoffeeTable init
 
         it "can be instantiated", ->
-          assert.instanceOf table, CoffeeTable.Interactive, "table is an instance of CoffeeTable"
+          assert.instanceOf table, CoffeeTable, "table is an instance of CoffeeTable"
 
         it "initializes correctly with the proper history", ->
           assert.deepEqual table._init.get(), init, "The initial data is stored correctly in the tree."
@@ -24,6 +24,24 @@
               columns: ['columns']
               values: ['values']
             , init, "The initial is the first checkpoint."
+
+      describe "CoffeeTable, the loader", ->
+        table = null
+        init = {}
+        beforeEach ->
+          table = new CoffeeTable 'iris.json'
+
+        it "can import a file", ->
+          setTimeout ()->
+              assert table.length() == 149, "The length of the table is correct"
+              assert.deepEqual table.raw(), ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"], "The original columns are loaded correctly."
+              assert.deepEqual table.derived(), ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"], "The derived columns are loaded correctly."
+              table.transform
+                mean: ["sepal_length", "sepal_width", "petal_length", "petal_width", "species", (a,b,c,d)-> d3.zip(a,b,c,d).map (v)-> d3.mean(v)]
+              assert.include table.derived(), 'mean', "The derived column was added."
+              assert.notInclude table.raw(), 'mean', "The derived columns did not change the original values."
+            , 1000
+
 
       describe "Rows Operators",->
         table = null
@@ -35,7 +53,7 @@
             metadata: {x:'horizontal direction',y:'vertical direction'}
             columns: ['x', 'y']
             values: [[1, 3],[2, 8],[3,13],[4,18]]
-          table = new CoffeeTable.Interactive init
+          table = new CoffeeTable init
 
         it "can select Rows", ->
           assert.deepEqual table.iloc([2])[0], init.values[2], "The a row can be chosen with the index."
@@ -81,7 +99,7 @@
             metadata: {x:'horizontal direction',y:'vertical direction'}
             columns: ['x', 'y']
             values: [[1, 3],[2, 8],[3,13]]
-          table = new CoffeeTable.Interactive init
+          table = new CoffeeTable init
 
         it "creates new derived columns data sources", ->
           assert.sameMembers table._columns.get(0), init.columns, "The original columns are preserved."
