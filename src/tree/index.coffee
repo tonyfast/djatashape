@@ -29,26 +29,15 @@ module.exports = class Tree extends require '../table'
       values: ['values']
       columns: ['columns', 0]
 
-    @set_event 'write', 'index', (tree_cursor,event)->
-      if event.data.path.length == 1
-        values = tree_cursor.get 'values'
-        new_index = tree_cursor.get 'index'
-        old_index = tree_cursor.select('index').getHistory(1)[0] ? d3.range new_index.length
-        tree_cursor.set 'values', new_index.map (i)=> values[old_index.indexOf i]
+    @tree.on 'write', (event)->
+      switch
+        when 'index' in event.data.path and event.data.path.length == 1
+          values = @get 'values'
+          new_index = @get 'index'
+          old_index = @select('index').getHistory(1)[0] ? d3.range new_index.length
+          @set 'values', new_index.map (i)=> values[old_index.indexOf i]
 
   ### A major cursor is reflected in the table API ###
   new_major_cursor: (name, set_value, alias)->
     @[alias ? name] = @cursor.select name
     if set_value? then @[alias ? name].set set_value
-
-  set_event: (name_space, cursor, fn)->
-    @events[name_space] ?= {}
-    @events[name_space][cursor] = fn
-    d3.entries @events
-      .forEach (baobab_event = key,value)=>
-        value = value
-        @tree.on baobab_event, (events)->
-          d3.entries events
-            .forEach (cursor_pointer = key, fn)->
-              if cursor_pointer in event.data.path
-                fn @, event

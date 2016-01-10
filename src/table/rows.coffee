@@ -4,13 +4,13 @@ module.exports = class require('./index').Row extends require './columns'
     @index.startRecording 1
     @length = ()-> @values.get().length
     super columns
-    @_add_derived_column 'index', [['index']], (index)-> index
+    @_add_derived_column 'index', ['index'], (index)-> index
 
   ###
   Update the index when a row is concatenated.
   ###
   concat: (length)->
-    i = @index.get()
+    i = @field.get 'index', 'values'
     max = Math.max(i...) + 1
     [0..length-1].map (j)=> @index.push max + j
 

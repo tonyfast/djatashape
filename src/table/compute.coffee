@@ -6,9 +6,9 @@ class Interactive.Compute
     ### Compute changes the state of the data tree ###
     @checkpoint.deepMerge
       name: @name.get()
-      index: @index.get()
+      index: @col 'index'
       readme: @readme.get()
-      values: @cols()
+      values: @col()
       metadata: @metadata.get()
       columns: [@columns.get(), @columns.get()]
 

@@ -7,8 +7,7 @@ module.exports = class require('./index').ColumnDataSource extends require './da
     super values, columns
     tmp = {};
     @raw.get().forEach (c)=> tmp[c] = null
-    console.log tmp
-    @expr.transform tmp
+    @transform tmp
 
   ### Append columns or rows without monkeys ###
   concat: ({columns,values})->
@@ -21,6 +20,6 @@ module.exports = class require('./index').ColumnDataSource extends require './da
         @_add_derived_column key
     super values, columns
 
-  cols: (columns...)->
+  col: (columns...)->
     if columns.length == 0 then columns = @columns.get()
     d3.zip columns.map( (c) => @field.get(c,'values'))...
