@@ -79,19 +79,20 @@ expressions are applied to the red table.  Methods are chainable.
 > Non-column/other cursor content is an array.
 
 ###
-class window.CoffeeTable
-  # Construct a collection of CoffeeTable books.
-  # @param [Object] content contains many Tabular datasets
-  # @param [Object] publisher contains many DOM selections
-  # @param [Object] book use publishers to present and update conteent
-  constructor: (@url)-> d3.json @url, (d)-> super d
+class CoffeeTable extends require './interactive'
   version: '0.1.0'
+  # Construct a collection of CoffeeTable books.
+  # @param [String] url_or_record_array A url to a remote resource
+  # @param [{name,metadata,readme,columns,values}] url_or_record_array a structured object to create a new table
+  constructor: (url_or_record_array, done)->
+    if typeof(url_or_record_array) in ['string']
+      d3.json url_or_record_array, (d)=>
+        super d
+        @cursor.set 'url', url_or_record_array
+    else
+      super url_or_record_array
 
-CoffeeTable.Interactive = require './interactive'
-CoffeeTable.InteractiveGraph = require './interactive'
-
-
-window.table = new CoffeeTable.Interactive
+window.table = new CoffeeTable
   columns: ['x', 'y']
   values: [
     [1, 2]
@@ -99,7 +100,7 @@ window.table = new CoffeeTable.Interactive
     [-1,4]
     [5,7]
   ]
-window.square = new CoffeeTable.Interactive
+window.square = new CoffeeTable
   columns: ['x', 'y']
   values: [
     [1, 1]

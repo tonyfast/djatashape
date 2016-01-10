@@ -3,11 +3,9 @@ d3 = require 'd3'
 module.exports = class require('./index').ColumnDataSource extends require './data'
   constructor: (values, columns)->
     @new_major_cursor 'column_source',  {}, 'field'
-    @expr.concat = @concat
     super values, columns
     tmp = {};
-    @raw.get().forEach (c)=> tmp[c] = null
-    @transform tmp
+    @raw.get().forEach (c)=> @_add_derived_column  c
 
   ### Append columns or rows without monkeys ###
   concat: ({columns,values})->

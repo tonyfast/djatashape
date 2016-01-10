@@ -4,7 +4,7 @@ module.exports = class require('./index').Row extends require './columns'
     @index.startRecording 1
     @length = ()-> @values.get().length
     super columns
-    @_add_derived_column 'index', ['index'], (index)-> index
+    @_add_derived_column 'index', [['index']], (index)-> index
 
   ###
   Update the index when a row is concatenated.

@@ -11,7 +11,7 @@ Baobab monkeys must return jsonifiable values.
 d3 = require 'd3'
 Baobab = require 'baobab'
 
-module.exports = class Tree extends require '../table'
+module.exports = class Tree extends require '../expressions'
   constructor: (structured_data)->
     @tree = new Baobab structured_data
     @cursor = @tree.select 0
