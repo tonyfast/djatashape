@@ -33,3 +33,4 @@ the right handle for coffeetable.
 Each of these is a module that exposes one function which accepts CoffeeTable
 
         (require "./basics") CoffeeTable, assert, require('d3')
+        (require "./expressions") CoffeeTable, assert, require('d3')
