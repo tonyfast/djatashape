@@ -29,11 +29,11 @@
         table = null
         init = {}
         beforeEach ->
-          table = new CoffeeTable 'iris.json'
+          table = new CoffeeTable 'lib/test/iris.json'
 
         it "can import a file", ->
           setTimeout ()->
-              
+
               assert table.length() == 150, "The length of the table is correct"
               assert.deepEqual table.raw.get(), ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"], "The original columns are loaded correctly."
               assert.deepEqual table.columns.get(), ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"], "The derived columns are loaded correctly."

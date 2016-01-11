@@ -1,5 +1,4 @@
 d3 = require 'd3'
-Table = require './table'
 Tree = require './tree'
 
 ###

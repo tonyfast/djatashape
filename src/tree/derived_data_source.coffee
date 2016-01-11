@@ -1,6 +1,6 @@
 Baobab = require 'baobab'
-d3 = require 'd3'
-module.exports = class DerivedDataSource extends require '../table/column_data_source'
+
+class DerivedDataSource extends require '../table/column_data_source'
   constructor: (values, columns)->
     ###
     Transform adds named columns to the table
@@ -28,3 +28,5 @@ module.exports = class DerivedDataSource extends require '../table/column_data_s
     ### Always push derived columns to second part of columns ###
     unless name in ['index', @columns.get()...]
       @columns.push name
+
+module.exports = DerivedDataSource

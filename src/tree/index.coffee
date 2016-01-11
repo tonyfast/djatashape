@@ -8,10 +8,9 @@ The Tree is the interactive data source for the table.  It is responsible for
 > All content on the leaves of the tree should be JSONifiable.  No Javascript objects.
 Baobab monkeys must return jsonifiable values.
 ###
-d3 = require 'd3'
-Baobab = require 'baobab'
+[d3,Baobab] = ['d3','baobab'].map (v)=> require v
 
-module.exports = class Tree extends require '../expressions'
+class Tree extends require '../table'
   constructor: (structured_data)->
     @tree = new Baobab structured_data
     @cursor = @tree.select 0
@@ -41,3 +40,5 @@ module.exports = class Tree extends require '../expressions'
   new_major_cursor: (name, set_value, alias)->
     @[alias ? name] = @cursor.select name
     if set_value? then @[alias ? name].set set_value
+
+module.exports = Tree

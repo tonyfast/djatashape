@@ -1,4 +1,6 @@
-module.exports = class require('./index').Row extends require './columns'
+Tree = require('./index')
+
+class Tree.Row extends require './columns'
   constructor: (values, columns)->
     @new_major_cursor 'index', [0..values.length]
     @index.startRecording 1
@@ -40,3 +42,6 @@ module.exports = class require('./index').Row extends require './columns'
     if selection?
       values = selection.map (i)=> values[index.indexOf i]
     values
+
+
+module.exports = Tree.Row

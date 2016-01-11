@@ -1,7 +1,6 @@
-d3 = require "d3"
-Interactive = require './index'
+Table = require './index'
 
-class Interactive.Compute
+class Table.Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
     @checkpoint.deepMerge
@@ -25,4 +24,4 @@ class Interactive.Compute
     this
 
 
-module.exports = Interactive.Compute
+module.exports = Table.Compute

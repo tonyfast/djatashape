@@ -1,4 +1,6 @@
-module.exports = class require('./index').Expression extends require './history'
+Tree = require('./index')
+
+class Tree.Expression extends require './history'
   constructor: ->
     @new_major_cursor 'expression'
     @expression.set []
@@ -12,3 +14,5 @@ module.exports = class require('./index').Expression extends require './history'
 
   get: (args...)-> @cursor.get args...
   set: (args...)-> @cursor.set args...
+
+module.exports = Tree.Expression

@@ -1,6 +1,7 @@
 d3 = require 'd3'
+Table = require('./index')
 
-module.exports = class require('./index').ColumnDataSource extends require './data'
+class Table.ColumnDataSource extends require './data'
   constructor: (values, columns)->
     @new_major_cursor 'column_source',  {}, 'field'
     super values, columns
@@ -21,3 +22,5 @@ module.exports = class require('./index').ColumnDataSource extends require './da
   col: (columns...)->
     if columns.length == 0 then columns = @columns.get()
     d3.zip columns.map( (c) => @field.get(c,'values'))...
+
+module.exports = Table.ColumnDataSource

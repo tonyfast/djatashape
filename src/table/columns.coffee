@@ -1,1 +1,5 @@
-module.exports = class require('./index').Column extends require './expression'
+Table = require('./index')
+
+class Table.Column extends require '../tree/expression'
+
+module.exports = Table.Column

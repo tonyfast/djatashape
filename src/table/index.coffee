@@ -1,6 +1,5 @@
 Interactive = require './index'
-DerivedDataSource = require '../tree/derived_data_source'
-ColumnDataSource = require './column_data_source'
+Expressions = require '../expressions'
 
 # Table assigns metadata to the Interactive data source
 # A table is describe by:
@@ -9,7 +8,7 @@ ColumnDataSource = require './column_data_source'
 # * _metadata_ -
 # The table keys  naming is inspired by ``pandas.DataFrame.to_dict(orient='records').
 
-class Interactive.Table extends DerivedDataSource
+class Interactive.Table extends Expressions
   # @param [Array] columns The name of the table columns
   # @param [Array] values The values of the table.
   # @param [Object] metadata An object describing the columns

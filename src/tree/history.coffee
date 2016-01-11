@@ -1,4 +1,6 @@
-module.exports = class require('./index').History extends require './compute'
+Tree = require './index' 
+
+class Tree.History extends require './compute'
   constructor: ->
     @new_major_cursor 'checkpoint', {}
     super()
@@ -6,3 +8,5 @@ module.exports = class require('./index').History extends require './compute'
   clear_history: -> @expression.clearHistory()
   record: (expression)->
     @expression.push expression
+
+module.exports = Tree.History
