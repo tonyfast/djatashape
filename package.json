@@ -1,6 +1,18 @@
 {
-  "author": "",
-  "description": "",
+  "author": {
+    "name": "Tony Fast",
+    "url": "http://tonyfast.com/"
+  },
+  "coffeelintConfig": {
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "dependencies": {
+    "baobab": "^2.2.1",
+    "d3": "^3.5.12"
+  },
+  "description": "manages many tabular data sources in single page web applications",
   "devDependencies": {
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
@@ -14,14 +26,13 @@
     "mocha-istanbul": "^0.2.0",
     "testem": "^0.9.11"
   },
-  "coffeelintConfig": {
-    "max_line_length": {
-      "level": "ignore"
-    }
-  },
   "license": "ISC",
   "main": "lib/coffeetable.js",
   "name": "coffeetable",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonyfast/coffeetable.git"
+  },
   "scripts": {
     "build": "browserify -t coffeeify --debug --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -x d3 -x baobab -x Baobab -o lib/coffeetable.js",
     "build-deps": "browserify -r baobab -r d3 -o lib/test/lib/vendor.js",
@@ -29,13 +40,9 @@
     "coverage": "istanbul report",
     "docs": "codo src - src/test/*",
     "lint": "coffeelint src/**/*.coffee src/**/*.coffee.md",
-    "test-js": "mocha --recursive -R tap lib/test/*.js",
     "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
+    "test-js": "mocha --recursive -R tap lib/test/*.js",
     "testem": "testem"
   },
-  "version": "1.0.0",
-  "dependencies": {
-    "baobab": "^2.2.1",
-    "d3": "^3.5.12"
-  }
+  "version": "1.0.0"
 }
