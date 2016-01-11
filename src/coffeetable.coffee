@@ -1,5 +1,5 @@
-Baobab = require "baobab"
-d3 = require "d3"
+{Baobab, d3} = require "./deps"
+Interactive = require './interactive'
 ###
 interactive tabular data, optimized for the browser
 
@@ -79,7 +79,7 @@ expressions are applied to the red table.  Methods are chainable.
 > Non-column/other cursor content is an array.
 
 ###
-class CoffeeTable extends require './interactive'
+class CoffeeTable extends Interactive
   version: '0.1.0'
   # Construct a collection of CoffeeTable books.
   # @param [String] url_or_record_array A url to a remote resource
@@ -92,20 +92,11 @@ class CoffeeTable extends require './interactive'
     else
       super url_or_record_array
 
-window.table = new CoffeeTable
-  columns: ['x', 'y']
-  values: [
-    [1, 2]
-    [3, 8]
-    [-1,4]
-    [5,7]
-  ]
-window.square = new CoffeeTable
-  columns: ['x', 'y']
-  values: [
-    [1, 1]
-    [7,7]
-  ]
+try
+  window.CoffeeTable = CoffeeTable
+catch
+  console.log "whatever"
+
 module.exports = {
   CoffeeTable
   d3

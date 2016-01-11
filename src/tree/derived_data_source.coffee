@@ -1,6 +1,7 @@
-Baobab = require 'baobab'
+{Baobab} = require '../deps'
+Tree = require '.'
 
-class DerivedDataSource extends require '../table/column_data_source'
+class Tree.DerivedDataSource extends require '../table/column_data_source'
   constructor: (values, columns)->
     ###
     Transform adds named columns to the table
@@ -29,4 +30,4 @@ class DerivedDataSource extends require '../table/column_data_source'
     unless name in ['index', @columns.get()...]
       @columns.push name
 
-module.exports = DerivedDataSource
+module.exports = Tree.DerivedDataSource

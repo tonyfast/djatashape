@@ -8,7 +8,7 @@ The Tree is the interactive data source for the table.  It is responsible for
 > All content on the leaves of the tree should be JSONifiable.  No Javascript objects.
 Baobab monkeys must return jsonifiable values.
 ###
-[d3,Baobab] = ['d3','baobab'].map (v)=> require v
+{d3,Baobab} = require '../deps'
 
 class Tree extends require '../table'
   constructor: (structured_data)->

@@ -1,4 +1,4 @@
-d3 = require 'd3'
+{d3} = require '../deps'
 
 module.exports = (transformers)->
   d3.entries transformers

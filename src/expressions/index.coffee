@@ -1,8 +1,7 @@
-d3 = require 'd3'
-Table = require('../table')
+{d3} = require '../deps'
 DerivedDataSource = require '../tree/derived_data_source'
 
-class Table.Expression extends DerivedDataSource
+class Expression extends DerivedDataSource
   transform: (transformers)->
     d3.entries transformers
       .forEach ({key,value})=>
@@ -74,4 +73,4 @@ class Table.Expression extends DerivedDataSource
     @expression.push ['apply',args.map (arg)-> JSON.parse JSON.stringify arg]
 
 
-module.exports = Table.Expression
+module.exports = Expression

@@ -1,4 +1,5 @@
-d3 = require 'd3'
+{d3} = require './deps'
+CoffeeTable = require './coffeetable'
 Tree = require './tree'
 
 ###
@@ -10,7 +11,7 @@ complex scenarios can be decoupled to independent tables.  Decoupled tables can 
 independently and joined with other tables.
 
 ###
-class Interactive extends Tree
+class CoffeeTable.Interactive extends Tree
   reset: ()->
     @cursor.deepMerge @_init.get()
     this
@@ -33,4 +34,4 @@ class Interactive extends Tree
     super record_orient_data
     @compute()
 
-module.exports = Interactive
+module.exports = CoffeeTable.Interactive

@@ -1,6 +1,6 @@
-Table = require './index'
+Tree = require './index'
 
-class Table.Compute
+class Tree.Compute
   compute: ()->
     ### Compute changes the state of the data tree ###
     @checkpoint.deepMerge
@@ -24,4 +24,4 @@ class Table.Compute
     this
 
 
-module.exports = Table.Compute
+module.exports = Tree.Compute

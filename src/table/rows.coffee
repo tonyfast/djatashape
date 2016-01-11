@@ -1,8 +1,8 @@
-Tree = require('./index')
+Table = require('./index')
 
-class Tree.Row extends require './columns'
+class Table.Row extends require './columns'
   constructor: (values, columns)->
-    @new_major_cursor 'index', [0..values.length]
+    @new_major_cursor 'index', [0..values.length-1]
     @index.startRecording 1
     @length = ()-> @values.get().length
     super columns
@@ -44,4 +44,4 @@ class Tree.Row extends require './columns'
     values
 
 
-module.exports = Tree.Row
+module.exports = Table.Row
