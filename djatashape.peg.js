@@ -1,13 +1,36 @@
 datashape = output:(struct / dimensions / compound / type ) _ { return output; }
 
-compound = type:type '[' args:compound_args ']' {
+types =
+  'bool' { return 'bool'; } /
+  'int' { return 'int32'} /
+  type:'int'[8,16,32,64,128] { return type; } /
+  'uint' { return 'uint32'} /
+  type:'uint'[8,16,32,64,128] { return type; } /
+  'real' { return 'float64'} /
+  type:'float'[8,16,32,64,128] { return type; } /
+  type:'decimal'[32,64,128] { return type; } /
+  type: 'char' { return type; }/
+  type: 'json' { return type; }/
+  type: 'date' { return type; }/
+  type: 'bytes' { return type; }/
+  type: 'string' { return type; }/
+  type: 'datetime' { return type; }/
+  type: 'categorical' { return type; }/
+  type: 'option' { return type; }/
+  type: 'pointer' { return type; }/
+  type: 'void' { return type; }/
+
+
+
+
+compound = type:types '[' args:compound_args ']' {
   return {
     type: type,
     args: args,
   }
 }
 
-compound_args = args:(arg:compound_arg _ {
+compound_args = args:(arg:compound_arg _ ',' _ {
 	return arg;
 })+ {
   var tmp = {};
@@ -29,7 +52,7 @@ compound_arg = key:string '=' value:compound_arg_value {
   }
 }
 
-compound_arg_value = string_value / integer / type
+compound_arg_value = string_value / integer / types
 struct = '{' _ entries:(entry)+ _ '}' {
 	var tmp={};
     entries.forEach(
