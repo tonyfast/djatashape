@@ -2,60 +2,46 @@
   function toObject( first, other ){
     /** Convert an array of {key,value} objects to an objecy **/
     var tmp = {};
-    tmp[first.key] = first.value;
-    console.log(other)
-    if ( !( other == null) ){
-      other.forEach( function(entry){
-        tmp[entry.key] = entry.value;
-      });
-    };
-    return tmp;
-  }
+    if ( !(first == null) ){
+      tmp[first.key] = first.value;
+      if ( !( other == null) ){
+        other.forEach( function(entry){
+          tmp[entry.key] = entry.value;
+        });
+      };
+      return tmp;
+    } else { return null; };
+  };
 }
 
+datashape = output:(shapes / structure / type ) _ { return output; }
 
-datashape = output:(shapes / structure / types ) _ { return output; }
-
-types = compound / simple_types
-
-shapes = _ shapes:(shape)+ _ datashape { return shapes;}
-shape = shape:(integer / "var") _ '*' { return shape; }
+shapes = _ shape:(shape)+ _ type:datashape {
+  return {
+    shape: shape,
+    type: type
+  };
+}
+shape = shape:(integer / "var") _ '*' _  { return shape; }
 
 structure = '{' arg_comma first_entry:(structure_entry)  other_entries:structure_entries? arg_comma '}' { return toObject(first_entry, other_entries); }
 structure_entries = entries:(arg_comma entry:structure_entry { return entry; })+ { return entries; }
-structure_entry = key:string _ ':' _ value:datashape { return { key: key, value: value,} }
+structure_entry = key:string _ ':' _ value:datashape { return { key: key, value: value,}; }
 
-compound = type:simple_types '[' arg_comma first_entry:(compound_type_entries)  other_entries:(compound_type_entry)+ arg_comma ']' {
-  return {
-    type: type,
-    args: toObject(first_entry, other_entries),
-   }
+type = type:types params:compound? { console.log(1,type);return {type: type, params: toObject(params)}; }
+
+types = type:(
+    'int' / 'uint' / 'float' / 'decimal' / 'char' /
+    'json' / 'void' / 'pointer' / 'complex' / 'string' / 'bytes' / 'datetime' / 'categorical'
+) { return type;  }
+
+compound = '[' arg_comma first_entry:(compound_entries)  other_entries:(compound_entry)+ arg_comma ']' {
+  !(other_entries == null) ? other_entries.unshift(first_entry) : null;
+  return !(other_entries == null) ? other_entries : first_entry ;
 }
-compound_type_entries = ',' entry:compound_type_entry { return entry; }
-compound_type_entry = key:string _ '=' _ value:(literal_string/datashape) { return { key: key, value: value,} }
+compound_entries = ',' entry:compound_entry { return entry; }
+compound_entry = key:string _ '=' _ value:(literal_string/datashape) { return { key: key, value: value,};  }
 
-
-simple_types = string
-  'bool' { return 'bool'; } /
-  'int' { return 'int32'} /
-  type:'int' [8,16,32,64,128] { return type; } /
-  'uint' { return 'uint32'} /
-  type:'uint' [8,16,32,64,128] { return type; } /
-  'real' { return 'float64'} /
-  type:'float' [8,16,32,64,128] { return type; } /
-  type:'decimal' [32,64,128] { return type; } /
-  type: 'char' { return type; }/
-  type: 'json' { return type; }/
-  type: 'date' { return type; }/
-  type: 'bytes' { return type; }/
-  type: 'string' { return type; }/
-  type: 'datetime' { return type; }/
-  type: 'categorical' { return type; }/
-  type: 'option' { return type; }/
-  type: 'pointer' { return type; }/
-  type: 'void' { return type; }
-
-type = string
 arg_comma = _ ','? _
 literal_string = ( '"' string '"' / "'" string "'")
 string = chars:([a-zA-Z0-9_])+ { return chars.join('') }
