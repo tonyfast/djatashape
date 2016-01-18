@@ -2,36 +2,40 @@
   function toObject( array ){
     /** Convert an array of {key,value} objects to an objecy **/
     var tmp = {};
-    if ( !( array == null) ){
-      console.log(2,array);
-      array.forEach( function(entry){
-          tmp[entry.key] = entry.value;
-      });
-    }
+    array.forEach( function(entry){
+        tmp[entry.key] = entry.value;
+    });
     if ( tmp === {} ){ return null; }
     return tmp;
   };
 }
 
+/** First Parsing Expression **/
 datashape = output:(shapes / structure / type ) _ { return output; }
 
-shapes = _ shape:(shape)+ _ type:datashape {
+/** Array Shapes trail with a type **/
+shapes = _ shape:(shape)+ _ type:type {
   return {
     shape: shape,
     type: type
   };
 }
-shape = shape:(integer / "var") _ '*' _  { return shape; }
 
-structure = '{' arg_comma first_entry:(structure_entry)  other_entries:structure_entries? arg_comma '}' {
-  if( !(other_entries ? other_entries.unshift( first_entry ? first_entry : [] ) : null) ){
-  	other_entries = null;
-  }
-  return toObject( other_entries );
+/** The shape is an integer or ``var`` separated by an asterisk **/
+shape = shape:( integer / "var" ) _ '*' _  { return shape; }
+
+/** Object DataShape defintion **/
+structure =  '{' _ entries:structure_entries? entry:(structure_entry) _ '}' {
+  entries = entries ? entries : [];
+  entries.unshift(entry = entry ? entry : void(0));
+  return toObject( entries );
 }
-structure_entries = entries:(',' _ entry:structure_entry { return entry; })+ { return entries; }
-structure_entry = key:string _ ':' _ value:datashape { return { key: key, value: value,}; }
 
+/** key/value pairs separated with a colon **/
+structure_entry = key:string _ ':' _ value:datashape { return { key: key, value: value,}; }
+structure_entries = entries:( entry:structure_entry _ ',' _ { return entry; })+ { return entries; }
+
+/** DataShape types **/
 type = type:types params:compound? { return {type: type, params: params ? params : {} }; }
 
 types = (t:'int' b:("8"/"16"/"32"/"64"/"128")? { return t+(b==null?'32':b) }) /
@@ -40,19 +44,17 @@ types = (t:'int' b:("8"/"16"/"32"/"64"/"128")? { return t+(b==null?'32':b) }) /
     (t:'decimal' b:("32"/"64"/"128")? { return t+(b==null?'32':b) }) /
     t:('char' / 'json' / 'void' / 'pointer' / 'complex' / 'string' / 'bytes' / 'datetime' / 'categorical') { return t;  }
 
-compound = '[' arg:(simple_type / args:(compound_type)+ { return args; } ) ']' {console.log('AA',arg);return arg;}
+compound = '[' arg:(simple_type / args:(compound_type)+ { return args; } )']' { return arg; }
 
 simple_type = value:types { return { key: 'type', value: value } }
 
-compound_type  = first_entry:compound_entry other_entries:(',' _ v:(compound_entries)* { return v; })? arg_comma {
+compound_type  =  _ entries:compound_entries? entry:(compound_entry) {
+  entries = entries ? entries : [];
+  entries.unshift(entry = entry ? entry : void(0));
+  return toObject( entries );
+}
 
-  if( !(other_entries ? other_entries.unshift( first_entry ? first_entry : [] ) : null) ){
-  	other_entries = null;
-  }
-  return toObject( other_entries );
- }
-
-compound_entries = entry:compound_entry { return entry; }
+compound_entries = entries:(entry:compound_entry  _ ',' _ { return entry; } )+ { return entries };
 compound_entry = key:string _ '=' _ value:(literal_string/types) { return { key: key, value: value,};  } /
   value:types { return {key: 'type', value: value}; }
 
