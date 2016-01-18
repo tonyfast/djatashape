@@ -36,7 +36,11 @@ structure_entry = key:string _ ':' _ value:datashape { return { key: key, value:
 structure_entries = entries:( entry:structure_entry _ ',' _ { return entry; })+ { return entries; }
 
 /** DataShape types **/
-type = type:types params:compound? { return {type: type, params: params ? params : {} }; }
+type = inferred:'?'? type:types params:compound? {
+  params = params ? params : {}
+  if (inferred){ params['inferred'] = true; }
+  return {type: type, params: params };
+}
 
 types = (t:'int' b:("8"/"16"/"32"/"64"/"128")? { return t+(b==null?'32':b) }) /
     (t:'unit' b:("8"/"16"/"32"/"64"/"128")? { return t+(b==null?'32':b) }) /
