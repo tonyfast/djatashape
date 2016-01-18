@@ -1,3 +1,5 @@
+/** A PegJS grammar for Python DataShape **/
+
 {
   function toObject( array ){
     /** Convert an array of {key,value} objects to an objecy **/
@@ -14,7 +16,7 @@
 datashape = output:(shapes / structure / type ) _ { return output; }
 
 /** Array Shapes trail with a type **/
-shapes = _ shape:(shape)+ _ type:type {
+shapes = _ shape:(shape)+ _ type:datashape {
   return {
     shape: shape,
     type: type
@@ -25,7 +27,7 @@ shapes = _ shape:(shape)+ _ type:type {
 shape = shape:( integer / "var" ) _ '*' _  { return shape; }
 
 /** Object DataShape defintion **/
-structure =  '{' _ entries:structure_entries? entry:(structure_entry) _ '}' {
+structure =  '{' _ entries:structure_entries? entry:(structure_entry) arg_comma '}' {
   entries = entries ? entries : [];
   entries.unshift(entry = entry ? entry : void(0));
   return toObject( entries );
@@ -37,8 +39,8 @@ structure_entries = entries:( entry:structure_entry _ ',' _ { return entry; })+ 
 
 /** DataShape types **/
 type = inferred:'?'? type:types params:compound? {
-  params = params ? params : {}
-  if (inferred){ params['inferred'] = true; }
+  if (!(params)){ return {type: type}; };
+  if (inferred){ params['inferred'] = true; };
   return {type: type, params: params };
 }
 
@@ -66,5 +68,5 @@ arg_comma = _ ','? _
 literal_string = ( '"' s:string '"' {return s;} / "'" s:string "'" {return s;})
 string = chars:([a-zA-Z0-9_])+ { return chars.join('') }
 integer = value:[0-9]+ { return parseFloat(value.join(""), 10); }
-_  = [ \t\r\n]*
-__ = [ \t\r\n]+
+
+_  = [\\ \\t\\r\\n]*
