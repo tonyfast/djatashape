@@ -5,15 +5,8 @@ DjataShape is a grammar for Array data in Javascript
 ## Getting Started
 
 ```coffee
-table = new CoffeeTable
-  columns: ['x', 'y']
-  values: [
-    [1, 2]
-    [3, 8]
-    [-1,4]
-    [5,7]
-  ]
-
+parser = new DjataShape
+console.log parser.parse '1*string'
 ```
 
 ## Developing
