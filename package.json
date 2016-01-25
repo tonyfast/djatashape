@@ -1,0 +1,47 @@
+{
+  "author": {
+    "name": "Tony Fast",
+    "url": "http://tonyfast.com/"
+  },
+  "coffeelintConfig": {
+    "max_line_length": {
+      "level": "ignore"
+    }
+  },
+  "dependencies": {
+    "pegjs": "^0.9.0"
+  },
+  "description": "A Grammar for Array Data in Javascript",
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "chai": "^3.4.1",
+    "codo": "^2.0.11",
+    "coffee-coverage": "^0.7.0",
+    "coffee-script": "^1.10.0",
+    "coffeeify": "^2.0.1",
+    "coffeelint": "^1.14.2",
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4",
+    "mocha-istanbul": "^0.2.0",
+    "testem": "^0.9.11"
+  },
+  "license": "ISC",
+  "main": "lib/djatashape.js",
+  "name": "djatashape",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonyfast/djatashape.git"
+  },
+  "scripts": {
+    "build": "browserify -t coffeeify --debug --extension='.coffee' src/djatashape.coffee --standalone coffeetable -x pegjs -o lib/djatashape.js",
+    "build-deps": "browserify -r pegjs -o lib/test/lib/vendor.js",
+    "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x djatashape --ignore-missing -o lib/test/index.js",
+    "coverage": "istanbul report",
+    "docs": "codo src - src/test/*",
+    "lint": "coffeelint src/**/*.coffee src/**/*.coffee.md",
+    "test": "mocha --recursive --compilers coffee:coffee-script/register --require coffee-coverage/register-istanbul src/test/*.coffee.md",
+    "test-js": "mocha --recursive -R tap lib/test/*.js",
+    "testem": "testem"
+  },
+  "version": "0.1.0"
+}

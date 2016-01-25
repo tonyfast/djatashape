@@ -1,0 +1,27 @@
+framework: mocha
+
+launchers:
+  Mocha:
+    command: npm run test
+    protocol: tap
+
+before_tests: |
+  npm run build-test \
+    && npm run build-deps \
+    && npm run build \
+    && npm run docs \
+    && (npm run test || true) \
+    && npm run coverage
+
+serve_files:
+  - lib/test/lib/*.js
+  - lib/*.js
+  - lib/test/*.js
+
+src_files:
+  - src/**/*.coffee
+  - src/**/*.coffee.md
+
+routes:
+  /doc: doc #http://localhost:7357/doc/index.html
+  /coverage: coverage #http://localhost:7357/coverage/lcov-report/index.html
