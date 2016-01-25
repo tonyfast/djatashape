@@ -3,7 +3,7 @@
 DjataShape is a grammar for Array data in Javascript
 
 ## Getting Started
-
+ 
 ```coffee
 parser = new DjataShape
 console.log parser.parse '1*string'
