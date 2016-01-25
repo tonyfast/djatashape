@@ -9,10 +9,9 @@
     }
   },
   "dependencies": {
-    "baobab": "^2.2.1",
-    "d3": "^3.5.12"
+    "pegjs": "^0.9.0"
   },
-  "description": "manages many tabular data sources in single page web applications",
+  "description": "A Grammar for Array Data in Javascript",
   "devDependencies": {
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
@@ -27,16 +26,16 @@
     "testem": "^0.9.11"
   },
   "license": "ISC",
-  "main": "lib/coffeetable.js",
-  "name": "coffeetable",
+  "main": "lib/djatashape.js",
+  "name": "djatashape",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonyfast/coffeetable.git"
+    "url": "https://github.com/tonyfast/djatashape.git"
   },
   "scripts": {
-    "build": "browserify -t coffeeify --debug --extension='.coffee' src/coffeetable.coffee --standalone coffeetable -x d3 -x baobab -x Baobab -o lib/coffeetable.js",
-    "build-deps": "browserify -r baobab -r d3 -o lib/test/lib/vendor.js",
-    "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x coffeetable --ignore-missing -o lib/test/index.js",
+    "build": "browserify -t coffeeify --debug --extension='.coffee' src/djatashape.coffee --standalone coffeetable -x pegjs -o lib/djatashape.js",
+    "build-deps": "browserify -r pegjs -o lib/test/lib/vendor.js",
+    "build-test": "browserify -t coffeeify --debug --extension='.coffee.md' src/test/index.coffee.md -x djatashape --ignore-missing -o lib/test/index.js",
     "coverage": "istanbul report",
     "docs": "codo src - src/test/*",
     "lint": "coffeelint src/**/*.coffee src/**/*.coffee.md",
@@ -44,5 +43,5 @@
     "test-js": "mocha --recursive -R tap lib/test/*.js",
     "testem": "testem"
   },
-  "version": "1.0.0"
+  "version": "0.1.0"
 }
