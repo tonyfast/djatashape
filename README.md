@@ -1,6 +1,6 @@
-# CoffeeTable [![Build Status](https://travis-ci.org/tonyfast/coffeetable.svg?branch=master)](https://travis-ci.org/tonyfast/coffeetable)
+# DjataShape [![Build Status](https://travis-ci.org/tonyfast/djatashape.svg?branch=master)](https://travis-ci.org/tonyfast/djatashape)
 
-CoffeeTable manages many tabular data sources in single page web applications.  
+DjataShape is a grammar for Array data in Javascript
 
 ## Getting Started
 
